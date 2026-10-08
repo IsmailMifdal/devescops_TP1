@@ -3,27 +3,29 @@
 # =====================================================================
 # Étage 1 : builder (image -dev : pip + shell, jamais livrée)
 # =====================================================================
-FROM cgr.dev/chainguard/python:latest-dev@sha256:894aed3297d91283e1fc4c542f5374a4b5f3726134fda7c94eaa539342be1e05 AS builder
+FROM cgr.dev/chainguard/python:latest-dev@sha256:...TON DIGEST... AS builder      ← NE PAS TOUCHER
 WORKDIR /app
-RUN python -m venv /app/venv
-ENV PATH="/app/venv/bin:${PATH}"
+# venv SANS pip : aucun gestionnaire de paquets ne sera livré dans le runtime
+RUN python -m venv --without-pip /app/venv
 # Manifeste isolé avant le code : le cache pip survit aux modifs de app.py
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Le pip système de l'image -dev installe DANS le venv (--python)
+RUN pip install --no-cache-dir --python /app/venv/bin/python -r requirements.txt
+ENV PATH="/app/venv/bin:${PATH}"
 
 # =====================================================================
 # Étage 2 : test (outillage pytest, utilisé uniquement en CI)
 # =====================================================================
 FROM builder AS test
 COPY requirements-dev.txt .
-RUN pip install --no-cache-dir -r requirements-dev.txt
+RUN pip install --no-cache-dir --python /app/venv/bin/python -r requirements-dev.txt
 COPY app.py .
 ENTRYPOINT ["python", "-m", "pytest", "-v", "-p", "no:cacheprovider"]
 
 # =====================================================================
 # Étage 3 : runtime (sans shell, sans pip, sans compilateur, non-root)
 # =====================================================================
-FROM cgr.dev/chainguard/python:latest@sha256:b6248c85ba9b97e1e61b30197f309cc4d21661f889fefa5268f0a7bc530dad46 AS runtime
+FROM cgr.dev/chainguard/python:latest@sha256:...TON DIGEST... AS runtime      ← NE PAS TOUCHER
 WORKDIR /app
 ENV PATH="/app/venv/bin:${PATH}" \
     PYTHONDONTWRITEBYTECODE=1 \
