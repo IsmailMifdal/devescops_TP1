@@ -195,11 +195,13 @@ jobs:
           name: api-image
       - name: Charger l'image validée
         run: docker load -i api-image.tar
+      - name: Nom d'image GHCR (les références OCI sont en minuscules)
+        run: echo "IMAGE_GHCR=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
       - name: Calcul des tags SemVer
         id: meta
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ${{ env.IMAGE_GHCR }}
           flavor: |
             latest=false
           tags: |

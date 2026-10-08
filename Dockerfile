@@ -10,7 +10,7 @@ RUN python -m venv --without-pip /app/venv
 # Manifeste isole avant le code : le cache pip survit aux modifs de app.py
 COPY requirements.txt .
 # Le pip systeme de l'image -dev installe DANS le venv (--python)
-RUN pip install --no-cache-dir --python /app/venv/bin/python -r requirements.txt
+RUN pip --python /app/venv/bin/python install --no-cache-dir -r requirements.txt
 ENV PATH="/app/venv/bin:${PATH}"
 
 # =====================================================================
@@ -18,7 +18,7 @@ ENV PATH="/app/venv/bin:${PATH}"
 # =====================================================================
 FROM builder AS test
 COPY requirements-dev.txt .
-RUN pip install --no-cache-dir --python /app/venv/bin/python -r requirements-dev.txt
+RUN pip --python /app/venv/bin/python install --no-cache-dir -r requirements-dev.txt
 COPY app.py .
 ENTRYPOINT ["python", "-m", "pytest", "-v", "-p", "no:cacheprovider"]
 

@@ -6,6 +6,7 @@ failure-threshold: warning
 override:
   error:
     - DL3002 # Interdiction de terminer l'image en root
+    - DL3006 # Image de base sans tag explicite interdite
     - DL3007 # Interdiction du tag mouvant :latest (version stricte ou digest SHA256)
     - DL4006 # SHELL -o pipefail obligatoire avant tout RUN avec pipe
 

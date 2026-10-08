@@ -1,23 +1,23 @@
 # DevSecOps TP1 : Hardening Flask + PostgreSQL
 
-> Binôme : **NOM 1** / **NOM 2**
+> Binôme : **Ismail Mifdal** / **NOM 2**
 
 ## 1. Packages GHCR publiés
 
 | Package | URL |
 |---|---|
-| API Flask durcie | https://github.com/OWNER/REPO/pkgs/container/REPO |
+| API Flask durcie | https://github.com/IsmailMifdal/devescops_TP1/pkgs/container/devescops_tp1 |
 
 ```bash
-docker pull ghcr.io/OWNER/REPO:1.0.0
-docker pull ghcr.io/OWNER/REPO:1.0
-docker pull ghcr.io/OWNER/REPO:1
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0.0
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1
 ```
 
 Test rapide de l'image publiée :
 
 ```bash
-docker run --rm -p 127.0.0.1:5000:5000 ghcr.io/OWNER/REPO:1.0.0
+docker run --rm -p 127.0.0.1:5000:5000 ghcr.io/ismailmifdal/devescops_tp1:1.0.0
 curl http://127.0.0.1:5000/health
 ```
 
@@ -25,14 +25,14 @@ curl http://127.0.0.1:5000/health
 
 | Critère | Avant (`python:3.10-slim`) | Après (Chainguard Python) |
 |---|---|---|
-| Poids de l'image | À COMPLÉTER Mo | À COMPLÉTER Mo |
+| Poids de l'image | 148 Mo | 84,7 Mo |
 | Utilisateur d'exécution | `root` | `65532` (nonroot) |
 | Shell présent | Oui (`/bin/sh`, `bash`) | Non |
 | Gestionnaire de paquets / pip | Oui (`apt`, `pip`) | Non |
-| CVE Trivy (toutes sévérités) | À COMPLÉTER | À COMPLÉTER |
-| CVE Trivy HIGH/CRITICAL corrigibles | À COMPLÉTER | 0 |
+| CVE Trivy (toutes sévérités) | 185 (47 HIGH, 73 MEDIUM, 63 LOW, 2 UNKNOWN) | 0 |
+| CVE Trivy HIGH/CRITICAL corrigibles | 3 | 0 |
 | CVE Python (`requirements.txt`) | 19 entrées / 3 paquets | 0 |
-| Efficience Dive | À COMPLÉTER % | À COMPLÉTER % |
+| Efficience Dive | 97,35 % (5,7 Mo gaspillés) | 99,72 % (237 ko gaspillés) |
 | Base PostgreSQL | `postgres:14-alpine` (tag mouvant) | `cgr.dev/chainguard/postgres` épinglée par digest |
 
 ## 3. Images de base retenues
