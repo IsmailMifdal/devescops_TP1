@@ -200,7 +200,15 @@ None
 
 ### Publication GHCR
 ```
-À COLLER (docker pull ...)
+# Run de release sur le tag v1.0.0 (6/6 jobs verts, dont Publication GHCR) :
+# https://github.com/IsmailMifdal/devescops_TP1/actions/runs/37772107773
+$ docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0.0
+Digest: sha256:2da980f2aee00a38be9a1b2e48f9682402b489edb8fe8bb5024dc2a4d640bf09
+Status: Downloaded newer image for ghcr.io/ismailmifdal/devescops_tp1:1.0.0
+$ docker manifest inspect ghcr.io/ismailmifdal/devescops_tp1:1.0   # OK
+$ docker manifest inspect ghcr.io/ismailmifdal/devescops_tp1:1     # OK
+$ docker run --rm --entrypoint python ghcr.io/ismailmifdal/devescops_tp1:1.0.0 -c "import os; print('uid', os.getuid())"
+uid 65532
 ```
 
 ## Lancer le projet en local
