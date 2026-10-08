@@ -104,36 +104,98 @@ Pipeline : `flake8` + `hadolint` → `build` (BuildKit + Dive ≥ 80 %) → `sec
 
 ## 7. Preuves d'exécution
 
-Run GitHub Actions : À COMPLÉTER (lien)
+Run GitHub Actions (toutes les barrières vertes sur `main`) : https://github.com/IsmailMifdal/devescops_TP1/actions/runs/37771793878
+
+Les sorties ci-dessous sont celles des mêmes commandes que le pipeline, rejouées en local.
 
 ### Flake8
 ```
-À COLLER
+$ flake8 --config .flake8 .
+$ echo $?
+0
+# Contre-vérification sans aucune règle ignorée
+$ flake8 --isolated --max-line-length 88 app.py test_app.py
+$ echo $?
+0
 ```
 
 ### Hadolint
 ```
-À COLLER
+$ hadolint --config .hadolint.yaml Dockerfile
+$ echo $?
+0
 ```
 
 ### Dive (efficience ≥ 80 %)
 ```
-À COLLER
+$ CI=true dive --ci --lowestEfficiency=0.8 api:ci
+  efficiency: 99.7206 %
+  wastedBytes: 237208 bytes (237 kB)
+  userWastedPercent: 0.4940 %
+Results:
+  PASS: highestUserWastedPercent
+  SKIP: highestWastedBytes: rule disabled
+  PASS: lowestEfficiency
+Result:PASS [Total:3] [Passed:2] [Failed:0] [Warn:0] [Skipped:1]
 ```
 
 ### Trivy
 ```
-À COLLER
+$ trivy image --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed api:ci
+│ api:ci (wolfi 20230201)                                     │   wolfi    │ 0 │
+│ .../blinker-1.9.0.dist-info/METADATA                        │ python-pkg │ 0 │
+│ .../click-8.5.0.dist-info/METADATA                          │ python-pkg │ 0 │
+│ .../flask-3.1.3.dist-info/METADATA                          │ python-pkg │ 0 │
+│ .../itsdangerous-2.2.0.dist-info/METADATA                   │ python-pkg │ 0 │
+│ .../jinja2-3.1.6.dist-info/METADATA                         │ python-pkg │ 0 │
+│ .../markupsafe-3.0.4.dist-info/METADATA                     │ python-pkg │ 0 │
+│ .../psycopg2_binary-2.9.13.dist-info/METADATA               │ python-pkg │ 0 │
+│ .../werkzeug-3.1.9.dist-info/METADATA                       │ python-pkg │ 0 │
+$ echo $?
+0
+
+$ trivy fs --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed .
+│ requirements.txt │ pip  │ 0 │ - │
 ```
+
+Toutes sévérités confondues (`trivy image`, sans filtre) : 185 CVE sur l'image d'origine, 0 sur l'image durcie.
 
 ### Compose : services sains
 ```
-À COLLER (docker compose ps)
+$ docker compose up -d --build --wait --wait-timeout 120
+ Container devsecops-tp1-db-1 Healthy
+ Container devsecops-tp1-api-python-1 Healthy
+$ docker compose ps
+NAME                         SERVICE      STATUS                  PORTS
+devsecops-tp1-api-python-1   api-python   Up 6 seconds (healthy)  127.0.0.1:5000->5000/tcp
+devsecops-tp1-db-1           db           Up (healthy)
+$ curl -fsS http://127.0.0.1:5000/health
+{"status":"ok"}
+$ curl -fsS http://127.0.0.1:5000/dbtest
+{"db_connection":"successful"}
 ```
 
 ### Tests d'intégration
 ```
-À COLLER (pytest)
+$ docker compose --profile test run --rm tests
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /app/venv/bin/python
+collected 3 items
+
+test_app.py::test_health PASSED                                          [ 33%]
+test_app.py::test_hello PASSED                                           [ 66%]
+test_app.py::test_dbtest PASSED                                          [100%]
+
+============================== 3 passed in 0.30s ===============================
+```
+
+### Contrôles du runtime
+```
+$ docker run --rm --entrypoint sh api:ci -c true
+exec: "sh": executable file not found in $PATH
+$ docker run --rm --entrypoint python api:ci -c "import os; print(os.getuid())"
+65532
+$ docker run --rm --entrypoint python api:ci -c "import importlib.util as u; print(u.find_spec('pip'))"
+None
 ```
 
 ### Publication GHCR
