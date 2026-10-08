@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------
+# 1) Tout refuser par défaut (liste blanche)
+# ---------------------------------------------------------------
+*
+
+# ---------------------------------------------------------------
+# 2) Autoriser uniquement ce que le Dockerfile copie
+# ---------------------------------------------------------------
+!app.py
+!requirements.txt
+!requirements-dev.txt
+
+# ---------------------------------------------------------------
+# 3) Re-bloquer explicitement (défense en profondeur)
+# ---------------------------------------------------------------
+# Environnement et secrets
+.env
+.env.*
+*.pem
+*.key
+# Métadonnées Git / CI
+.git
+.gitignore
+.github
+# Caches Python et environnements virtuels
+**/__pycache__
+**/*.py[cod]
+.pytest_cache
+.venv
+venv
+# Tests
+test_*.py
+*_test.py
+tests
+pytest.ini
+.flake8
+# Logs et archives
+*.log
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+# Documentation et orchestration
+README.md
+LICENSE
+docker-compose*.yml
+Dockerfile*
+.hadolint.yaml
+.trivyignore

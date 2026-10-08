@@ -1,0 +1,105 @@
+name: devsecops-tp1
+
+services:
+  api-python:
+    build:
+      context: .
+      target: runtime
+    image: devsecops-tp1-api:local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      ENV: test
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: ${POSTGRES_DB:?POSTGRES_DB manquant dans .env}
+      DB_USER: ${POSTGRES_USER:?POSTGRES_USER manquant dans .env}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - frontend
+      - backend
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      # Forme exec : pas de shell dans l'image, on utilise Python et sa stdlib
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  db:
+    image: cgr.dev/chainguard/postgres:latest@sha256:0c4eaf6cb9bd65337d834f5ebfe79add4312ee2125ab584bf1fbc071abc6bb8f
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER manquant dans .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB manquant dans .env}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      # Forme exec + utilitaire client fourni par l'image ; -h 127.0.0.1 force TCP
+      test:
+        - CMD
+        - pg_isready
+        - -h
+        - 127.0.0.1
+        - -U
+        - ${POSTGRES_USER}
+        - -d
+        - ${POSTGRES_DB}
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Tests d'intégration pytest (lancés à la demande : --profile test)
+  tests:
+    profiles:
+      - test
+    build:
+      context: .
+      target: test
+    image: devsecops-tp1-tests:local
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./test_app.py:/app/test_app.py:ro
+      - ./pytest.ini:/app/pytest.ini:ro
+    networks:
+      - backend
+    depends_on:
+      db:
+        condition: service_healthy
+      api-python:
+        condition: service_healthy
+
+networks:
+  frontend: {}
+  backend:
+    # Réseau interne : la base n'est joignable ni depuis l'hôte ni depuis Internet
+    internal: true
+
+volumes:
+  db-data:

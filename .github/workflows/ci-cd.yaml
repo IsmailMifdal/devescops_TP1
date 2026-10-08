@@ -1,0 +1,224 @@
+name: CI/CD durcie
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*.*.*"]
+  pull_request:
+    branches: [main]
+
+# Permissions verrouillées par défaut : chaque job déclare le strict nécessaire
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE_LOCAL: api:ci
+  HADOLINT_VERSION: v2.15.1
+  HADOLINT_SHA256: c7187db94eeeeca956519a6af171adc31453941a1e777961f6e680f697c8c507
+  DIVE_VERSION: 0.13.1
+  DIVE_SHA256: 0970549eb4a306f8825a84145a2534153badb4d7dcf3febd1967c706367c3d0e
+  TRIVY_VERSION: 0.75.0
+  TRIVY_SHA256: c6e65abddb348e25f10549df887045629cf28cc72453cd1c63acb717316b3f3f
+
+jobs:
+  # ---------------------------------------------------------------
+  # 1. Qualité applicative
+  # ---------------------------------------------------------------
+  flake8:
+    name: Qualité Python (Flake8)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+      - name: Installer l'outillage
+        run: pip install --no-cache-dir -r requirements-dev.txt
+      - name: Flake8 (configuration du projet)
+        run: flake8 --config .flake8 .
+      - name: Tests unitaires
+        run: pytest -v -m "not integration" -p no:cacheprovider
+
+  # ---------------------------------------------------------------
+  # 2. Analyse statique du Dockerfile
+  # ---------------------------------------------------------------
+  hadolint:
+    name: Audit Dockerfile (Hadolint)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Installer Hadolint (binaire vérifié par SHA256)
+        run: |
+          curl -sSfL -o hadolint "https://github.com/hadolint/hadolint/releases/download/${HADOLINT_VERSION}/hadolint-linux-x86_64"
+          echo "${HADOLINT_SHA256}  hadolint" | sha256sum -c -
+          chmod +x hadolint
+      - name: Hadolint (gouvernance .hadolint.yaml)
+        run: ./hadolint --config .hadolint.yaml Dockerfile
+
+  # ---------------------------------------------------------------
+  # 3. Build BuildKit + métrologie des couches (Dive)
+  # ---------------------------------------------------------------
+  build:
+    name: Build & Dive
+    runs-on: ubuntu-latest
+    needs: [flake8, hadolint]
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build de l'image runtime (BuildKit)
+        env:
+          DOCKER_BUILDKIT: "1"
+        run: |
+          docker build --target runtime \
+            --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
+            --label "org.opencontainers.image.revision=${GITHUB_SHA}" \
+            --label "org.opencontainers.image.description=API Flask durcie (Chainguard Python)" \
+            -t "${IMAGE_LOCAL}" .
+          docker images "${IMAGE_LOCAL}"
+      - name: Installer Dive (archive vérifiée par SHA256)
+        run: |
+          curl -sSfL -o dive.tar.gz "https://github.com/wagoodman/dive/releases/download/v${DIVE_VERSION}/dive_${DIVE_VERSION}_linux_amd64.tar.gz"
+          echo "${DIVE_SHA256}  dive.tar.gz" | sha256sum -c -
+          tar -xzf dive.tar.gz dive
+      - name: Dive en mode CI (efficience >= 80 %)
+        run: CI=true ./dive --ci --lowestEfficiency=0.8 "${IMAGE_LOCAL}"
+      - name: Exporter l'image testée
+        run: docker save -o api-image.tar "${IMAGE_LOCAL}"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: api-image
+          path: api-image.tar
+          retention-days: 1
+
+  # ---------------------------------------------------------------
+  # 4. Sécurité supply chain (Trivy bloquant)
+  # ---------------------------------------------------------------
+  security:
+    name: Scan Trivy
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: api-image
+      - name: Charger l'image
+        run: docker load -i api-image.tar && rm api-image.tar
+      - name: Installer Trivy (archive vérifiée par SHA256)
+        run: |
+          curl -sSfL -o trivy.tar.gz "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
+          echo "${TRIVY_SHA256}  trivy.tar.gz" | sha256sum -c -
+          tar -xzf trivy.tar.gz trivy
+      - name: Trivy - image (OS + paquets Python)
+        run: ./trivy image --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress "${IMAGE_LOCAL}"
+      - name: Trivy - dépendances et secrets du dépôt
+        run: ./trivy fs --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress .
+
+  # ---------------------------------------------------------------
+  # 5. Intégration dynamique & smoke test
+  # ---------------------------------------------------------------
+  integration:
+    name: Intégration Compose & smoke test
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: api-image
+      - name: Charger l'image testée sous le nom attendu par Compose
+        run: |
+          docker load -i api-image.tar
+          docker tag "${IMAGE_LOCAL}" devsecops-tp1-api:local
+      - name: Générer un .env éphémère (mot de passe aléatoire)
+        run: |
+          {
+            echo "POSTGRES_USER=testuser"
+            echo "POSTGRES_DB=testdb"
+            echo "POSTGRES_PASSWORD=$(openssl rand -hex 24)"
+          } > .env
+      - name: Démarrage et attente de l'état sain (timeout 120 s)
+        run: docker compose up -d --no-build --wait --wait-timeout 120
+      - name: État des services
+        run: docker compose ps
+      - name: Smoke test /health
+        run: curl -fsS --retry 5 --retry-connrefused http://127.0.0.1:5000/health
+      - name: Smoke test /dbtest
+        run: curl -fsS http://127.0.0.1:5000/dbtest
+      - name: Build de l'image de test
+        run: docker compose --profile test build tests
+      - name: Tests d'intégration pytest
+        run: docker compose --profile test run --rm tests
+      - name: Journaux en cas d'échec
+        if: failure()
+        run: docker compose logs
+      - name: Teardown
+        if: always()
+        run: docker compose --profile test down -v --remove-orphans
+
+  # ---------------------------------------------------------------
+  # 6. Publication GHCR (uniquement sur tag SemVer, si tout est vert)
+  # ---------------------------------------------------------------
+  release:
+    name: Publication GHCR
+    runs-on: ubuntu-latest
+    needs: [security, integration]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: api-image
+      - name: Charger l'image validée
+        run: docker load -i api-image.tar
+      - name: Calcul des tags SemVer
+        id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ghcr.io/${{ github.repository }}
+          flavor: |
+            latest=false
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha,format=short
+      - name: Connexion à GHCR (jeton natif du workflow)
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tag et push de l'image exacte qui a passé toutes les barrières
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            docker tag "${IMAGE_LOCAL}" "$tag"
+            docker push "$tag"
+          done <<< "$TAGS"

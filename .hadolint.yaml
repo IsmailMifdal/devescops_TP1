@@ -1,0 +1,17 @@
+# Gouvernance d'équipe : politique de conteneurisation
+# Tout avertissement (warning) ou erreur fait échouer l'audit
+failure-threshold: warning
+
+# Règles de sécurité rehaussées en erreur bloquante
+override:
+  error:
+    - DL3002 # Interdiction de terminer l'image en root
+    - DL3007 # Interdiction du tag mouvant :latest (version stricte ou digest SHA256)
+    - DL4006 # SHELL -o pipefail obligatoire avant tout RUN avec pipe
+
+# Liste blanche des registres approuvés (DL3026)
+trustedRegistries:
+  - docker.io
+  - gcr.io
+  - cgr.dev
+  - ghcr.io
