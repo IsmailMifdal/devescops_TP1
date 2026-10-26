@@ -5,6 +5,9 @@ services:
     build:
       context: .
       target: runtime
+      # Secret de BUILD (jeton du dépôt interne) : tmpfs le temps du RUN pip
+      secrets:
+        - pip_token
     image: devsecops-tp1-api:local
     restart: unless-stopped
     ports:
@@ -83,6 +86,8 @@ services:
     build:
       context: .
       target: test
+      secrets:
+        - pip_token
     image: devsecops-tp1-tests:local
     environment:
       DB_HOST: db
@@ -117,3 +122,6 @@ secrets:
   # lecture seule dans /run/secrets/db_password des seuls services déclarés
   db_password:
     file: ./secrets/db_password.txt
+  # Secret de build : consommé uniquement par RUN --mount=type=secret,id=pip_token
+  pip_token:
+    file: ./secrets/pip_token

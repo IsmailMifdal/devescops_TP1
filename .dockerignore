@@ -46,5 +46,7 @@ README.md
 LICENSE
 docker-compose*.yml
 Dockerfile*
+docker-bake.hcl
+.buildx-cache
 .hadolint.yaml
 .trivyignore

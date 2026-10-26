@@ -67,10 +67,10 @@ jobs:
         run: ./hadolint --config .hadolint.yaml Dockerfile
 
   # ---------------------------------------------------------------
-  # 3. Build BuildKit + métrologie des couches (Dive)
+  # 3. Build multi-arch déclaratif (Bake) + étanchéité du secret + Dive
   # ---------------------------------------------------------------
   build:
-    name: Build & Dive
+    name: Build multi-arch (Bake) & Dive
     runs-on: ubuntu-latest
     needs: [flake8, hadolint]
     permissions:
@@ -79,16 +79,76 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Build de l'image runtime (BuildKit)
-        env:
-          DOCKER_BUILDKIT: "1"
+      - name: Émulation QEMU (binfmt_misc) pour linux/arm64
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
+        with:
+          platforms: arm64
+      - name: Builder BuildKit isolé (driver docker-container)
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - name: Jeton éphémère du dépôt interne (fichier hors contexte, masqué)
         run: |
-          docker build --target runtime \
-            --label "org.opencontainers.image.source=https://github.com/${GITHUB_REPOSITORY}" \
-            --label "org.opencontainers.image.revision=${GITHUB_SHA}" \
-            --label "org.opencontainers.image.description=API Flask durcie (Chainguard Python)" \
-            -t "${IMAGE_LOCAL}" .
-          docker images "${IMAGE_LOCAL}"
+          mkdir -p secrets
+          umask 077
+          openssl rand -hex 32 > secrets/pip_token
+          echo "::add-mask::$(cat secrets/pip_token)"
+      - name: Build multi-arch amd64 + arm64 (cache GHA mode=max)
+        uses: docker/bake-action@018cb6412ab401ebaa809aa5f85966b74628600f # v7.4.0
+        with:
+          source: .
+          files: ./docker-bake.hcl
+          targets: api
+          vars: |
+            CACHE_BACKEND=gha
+      - name: Variante amd64 chargée pour Dive, Trivy et Compose (servie par le cache)
+        uses: docker/bake-action@018cb6412ab401ebaa809aa5f85966b74628600f # v7.4.0
+        with:
+          source: .
+          files: ./docker-bake.hcl
+          targets: api-local
+          vars: |
+            CACHE_BACKEND=gha
+      - name: Variante arm64 chargée pour le scan Trivy
+        uses: docker/bake-action@018cb6412ab401ebaa809aa5f85966b74628600f # v7.4.0
+        with:
+          source: .
+          files: ./docker-bake.hcl
+          targets: api-local
+          vars: |
+            CACHE_BACKEND=gha
+          set: |
+            api-local.platform=linux/arm64
+            api-local.tags=${{ env.IMAGE_LOCAL }}-arm64
+      - name: Architectures des images construites
+        run: |
+          docker image inspect --format '{{.RepoTags}} {{.Os}}/{{.Architecture}} user={{.Config.User}}' \
+            "${IMAGE_LOCAL}" "${IMAGE_LOCAL}-arm64"
+      - name: Étanchéité du secret de build (historique --no-trunc + couches)
+        run: |
+          docker history --no-trunc --format '{{.CreatedBy}}' "${IMAGE_LOCAL}"
+          if docker history --no-trunc --format '{{.CreatedBy}}' "${IMAGE_LOCAL}" \
+            | grep -qF -f secrets/pip_token; then
+            echo "::error::Jeton présent dans l'historique de l'image"
+            exit 1
+          fi
+          audit="$(mktemp -d)"
+          docker save -o "${audit}/image.tar" "${IMAGE_LOCAL}"
+          mkdir "${audit}/x"
+          tar -xf "${audit}/image.tar" -C "${audit}/x"
+          hits=0
+          while IFS= read -r f; do
+            if tar -tf "$f" >/dev/null 2>&1; then
+              c=$(tar -xOf "$f" | grep -caF -f secrets/pip_token || true)
+            else
+              c=$(grep -caF -f secrets/pip_token "$f" || true)
+            fi
+            hits=$((hits + c))
+          done < <(find "${audit}/x" -type f)
+          echo "Occurrences du jeton dans les couches, la config et les manifestes : ${hits}"
+          rm -rf "${audit}"
+          if [ "${hits}" -ne 0 ]; then
+            echo "::error::Jeton présent dans les couches de l'image"
+            exit 1
+          fi
       - name: Installer Dive (archive vérifiée par SHA256)
         run: |
           curl -sSfL -o dive.tar.gz "https://github.com/wagoodman/dive/releases/download/v${DIVE_VERSION}/dive_${DIVE_VERSION}_linux_amd64.tar.gz"
@@ -96,16 +156,19 @@ jobs:
           tar -xzf dive.tar.gz dive
       - name: Dive en mode CI (efficience >= 80 %)
         run: CI=true ./dive --ci --lowestEfficiency=0.8 "${IMAGE_LOCAL}"
-      - name: Exporter l'image testée
-        run: docker save -o api-image.tar "${IMAGE_LOCAL}"
+      - name: Exporter les images testées (amd64 + arm64)
+        run: docker save -o api-image.tar "${IMAGE_LOCAL}" "${IMAGE_LOCAL}-arm64"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: api-image
           path: api-image.tar
           retention-days: 1
+      - name: Purge du jeton éphémère
+        if: always()
+        run: rm -rf secrets
 
   # ---------------------------------------------------------------
-  # 4. Sécurité supply chain (Trivy bloquant)
+  # 4. Sécurité supply chain (Trivy bloquant, chaque architecture)
   # ---------------------------------------------------------------
   security:
     name: Scan Trivy
@@ -120,15 +183,17 @@ jobs:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: api-image
-      - name: Charger l'image
+      - name: Charger les images
         run: docker load -i api-image.tar && rm api-image.tar
       - name: Installer Trivy (archive vérifiée par SHA256)
         run: |
           curl -sSfL -o trivy.tar.gz "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
           echo "${TRIVY_SHA256}  trivy.tar.gz" | sha256sum -c -
           tar -xzf trivy.tar.gz trivy
-      - name: Trivy - image (OS + paquets Python)
-        run: ./trivy image --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress "${IMAGE_LOCAL}"
+      - name: Trivy - image amd64 (vulnérabilités + secrets)
+        run: ./trivy image --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress "${IMAGE_LOCAL}"
+      - name: Trivy - image arm64 (vulnérabilités + secrets)
+        run: ./trivy image --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress "${IMAGE_LOCAL}-arm64"
       - name: Trivy - dépendances et secrets du dépôt
         run: ./trivy fs --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress .
 
@@ -152,17 +217,20 @@ jobs:
         run: |
           docker load -i api-image.tar
           docker tag "${IMAGE_LOCAL}" devsecops-tp1-api:local
-      - name: Générer la configuration et le secret éphémères
+      - name: Générer la configuration et les secrets éphémères
         run: |
           {
             echo "POSTGRES_USER=testuser"
             echo "POSTGRES_DB=testdb"
           } > .env
-          # Secret Compose monté par fichier ; lisible par les UID non-root des
-          # conteneurs (postgres, 65532) car un secret « file » est un bind mount
           mkdir -p secrets
+          # Secret d'exécution monté par fichier ; lisible par les UID non-root des
+          # conteneurs (postgres, 65532) car un secret « file » est un bind mount
           openssl rand -hex 24 > secrets/db_password.txt
           chmod 0444 secrets/db_password.txt
+          # Secret de build (image de test) : lu côté client par BuildKit uniquement
+          (umask 077 && openssl rand -hex 32 > secrets/pip_token)
+          echo "::add-mask::$(cat secrets/pip_token)"
       - name: Démarrage et attente de l'état sain (timeout 120 s)
         run: docker compose up -d --no-build --wait --wait-timeout 120
       - name: État des services
@@ -181,7 +249,7 @@ jobs:
         run: curl -fsS --retry 5 --retry-connrefused http://127.0.0.1:5000/health
       - name: Smoke test /dbtest
         run: curl -fsS http://127.0.0.1:5000/dbtest
-      - name: Build de l'image de test
+      - name: Build de l'image de test (secret de build monté)
         run: docker compose --profile test build tests
       - name: Tests d'intégration pytest
         run: docker compose --profile test run --rm tests
@@ -195,10 +263,10 @@ jobs:
           rm -rf secrets .env
 
   # ---------------------------------------------------------------
-  # 6. Publication GHCR (uniquement sur tag SemVer, si tout est vert)
+  # 6. Publication GHCR multi-arch (uniquement sur tag SemVer, si tout est vert)
   # ---------------------------------------------------------------
   release:
-    name: Publication GHCR
+    name: Publication GHCR (multi-arch)
     runs-on: ubuntu-latest
     needs: [security, integration]
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
@@ -206,11 +274,20 @@ jobs:
       contents: read
       packages: write
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: api-image
-      - name: Charger l'image validée
-        run: docker load -i api-image.tar
+      - name: Charger l'image amd64 validée (référence d'intégrité)
+        run: docker load -i api-image.tar && rm api-image.tar
+      - name: Émulation QEMU (binfmt_misc) pour linux/arm64
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
+        with:
+          platforms: arm64
+      - name: Builder BuildKit isolé (driver docker-container)
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
       - name: Nom d'image GHCR (les références OCI sont en minuscules)
         run: echo "IMAGE_GHCR=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
       - name: Calcul des tags SemVer
@@ -225,18 +302,48 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha,format=short
+      - name: Jeton éphémère du dépôt interne (fichier hors contexte, masqué)
+        run: |
+          mkdir -p secrets
+          umask 077
+          openssl rand -hex 32 > secrets/pip_token
+          echo "::add-mask::$(cat secrets/pip_token)"
       - name: Connexion à GHCR (jeton natif du workflow)
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Tag et push de l'image exacte qui a passé toutes les barrières
+      - name: Publication de l'index multi-arch (Bake, cache GHA du build validé)
+        uses: docker/bake-action@018cb6412ab401ebaa809aa5f85966b74628600f # v7.4.0
+        with:
+          source: .
+          files: |
+            ./docker-bake.hcl
+            ${{ steps.meta.outputs.bake-file-tags }}
+            ${{ steps.meta.outputs.bake-file-labels }}
+          targets: api
+          push: true
+          vars: |
+            CACHE_BACKEND=gha
+      - name: Index OCI publié (amd64 + arm64)
         env:
-          TAGS: ${{ steps.meta.outputs.tags }}
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: docker buildx imagetools inspect "${IMAGE_GHCR}:${VERSION}"
+      - name: Intégrité - les couches amd64 publiées sont celles de l'image testée
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
         run: |
-          while IFS= read -r tag; do
-            [ -z "$tag" ] && continue
-            docker tag "${IMAGE_LOCAL}" "$tag"
-            docker push "$tag"
-          done <<< "$TAGS"
+          published=$(docker buildx imagetools inspect "${IMAGE_GHCR}:${VERSION}" \
+            --format '{{json (index .Image "linux/amd64").RootFS.DiffIDs}}' | jq -c .)
+          tested=$(docker image inspect --format '{{json .RootFS.Layers}}' "${IMAGE_LOCAL}" | jq -c .)
+          echo "testée   : ${tested}"
+          echo "publiée  : ${published}"
+          if [ "${published}" != "${tested}" ]; then
+            echo "::error::L'image publiée diffère de l'image testée"
+            exit 1
+          fi
+          echo "OK : couches identiques"
+      - name: Purge du jeton éphémère
+        if: always()
+        run: rm -rf secrets

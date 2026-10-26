@@ -160,7 +160,7 @@ Choix :
 - **Artefact unique** : l'image construite une seule fois est transmise aux jobs suivants ; c'est exactement cette image, scannée et testée, qui est publiée.
 - **SemVer** : déclenchement sur tag `vX.Y.Z`. Tags publiés : `X.Y.Z` (immuable), `X.Y` et `X` (flottants pour suivre les correctifs), `sha-<commit>` (traçabilité). Pas de tag `latest`.
 
-Pipeline : `flake8` + `hadolint` → `build` (BuildKit + Dive ≥ 80 %) → `security` (Trivy) + `integration` (Compose avec secret, contrôle d'exposition du mot de passe, /health, /dbtest, pytest) → `release` (GHCR).
+Pipeline : `flake8` + `hadolint` → `build` (Bake multi-arch amd64/arm64, cache GHA, étanchéité du secret de build, Dive ≥ 80 %) → `security` (Trivy) + `integration` (Compose avec secret, contrôle d'exposition du mot de passe, /health, /dbtest, pytest) → `release` (GHCR).
 
 ## 7. Preuves d'exécution
 
@@ -321,14 +321,166 @@ $ docker run --rm --entrypoint python ghcr.io/ismailmifdal/devescops_tp1:1.0.0 -
 uid 65532
 ```
 
+## 8. TP2, étape 1 : build industriel, secrets de build et multi-arch
+
+Fichiers concernés : [Dockerfile](Dockerfile), [docker-bake.hcl](docker-bake.hcl), [docker-compose.yml](docker-compose.yml), [.github/workflows/ci-cd.yaml](.github/workflows/ci-cd.yaml).
+
+### A. Cache pip persistant hors couches
+
+- **Syntaxe étendue explicite** : `# syntax=docker/dockerfile:1.27.1@sha256:4edf…` en tête du Dockerfile. C'est le frontend BuildKit qui apporte `RUN --mount`. Il est épinglé par digest comme les images de base, puisqu'il exécute lui aussi du code pendant le build.
+- **Montage de cache dédié** : `--mount=type=cache,id=pip-cache,target=/home/nonroot/.cache/pip,uid=65532,gid=65532,sharing=locked`.
+  - Le builder Chainguard `-dev` tourne en **non-root** (UID 65532, `HOME=/home/nonroot`). Le cache est donc monté à l'emplacement réel de pip, avec le bon propriétaire : un `target=/root/.cache/pip` n'aurait jamais servi.
+  - `sharing=locked` sérialise l'accès quand amd64 et arm64 se construisent en parallèle.
+  - Le cache vit dans le builder BuildKit, jamais dans une couche. `--no-cache-dir` n'est donc plus nécessaire.
+- **Gouvernance intacte** : Hadolint reconnaît le montage de cache et ne lève pas DL3042, sans aucune dérogation. Sur un témoin sans montage ni `--no-cache-dir`, DL3042 est toujours levée (code retour 1).
+
+### B. Jeton du dépôt interne : secret de build en mémoire vive
+
+```dockerfile
+RUN --mount=type=cache,id=pip-cache,target=/home/nonroot/.cache/pip,uid=65532,gid=65532,sharing=locked \
+    --mount=type=secret,id=pip_token,required=true,uid=65532,gid=65532,mode=0400 \
+    if ! grep -q " /run/secrets/pip_token tmpfs " /proc/mounts; then … exit 1; fi \
+    && if ! grep -Eq "^[A-Za-z0-9_-]{32,}$" /run/secrets/pip_token; then … exit 1; fi \
+    && echo "Jeton du depot interne verifie (tmpfs, contenu non affiche)" \
+    && pip --python /app/venv/bin/python install … -r requirements.txt
+```
+
+- **Pas d'`ARG` ni d'`ENV`.** Le jeton n'existe que dans `/run/secrets/pip_token`, le temps de ce `RUN`, puis il est démonté.
+- **`required=true`** : le build échoue si le secret n'est pas fourni.
+- **`uid=65532,mode=0400`** : le fichier est lisible par le seul utilisateur du build. Par défaut, il appartiendrait à root et resterait illisible.
+- **Double vérification par le build** : le point de montage doit être de type `tmpfs` (mémoire vive) et le jeton doit avoir un format valide. Sinon, le build échoue.
+- **Source du secret**
+  - En local : `secrets/pip_token`, exclu par `.gitignore` (`secrets/`) et `.dockerignore` (liste blanche + `secrets`).
+  - En CI : jeton éphémère `openssl rand -hex 32`, masqué dans les journaux (`::add-mask::`) et supprimé en fin de job.
+- **Branchement** : Bake (`secret = ["id=pip_token,src=…"]`) et Compose (`build.secrets: [pip_token]`).
+
+### C. Bake déclaratif et index multi-architecture
+
+`docker-bake.hcl` remplace les lignes `docker buildx build` à rallonge :
+
+| Élément | Valeur |
+|---|---|
+| Variables | `REGISTRY`, `IMAGE_NAME`, `VERSION`, `PLATFORMS`, `PIP_TOKEN_FILE`, `CACHE_BACKEND`, `CACHE_SCOPE`, toutes surchargeables par variable d'environnement |
+| Architectures | `linux/amd64` (x86_64) et `linux/arm64` (ARM 64 bits) |
+| Secret | `id=pip_token,src=${PIP_TOKEN_FILE}` |
+| Cache externe | Import et export en `mode=max`. `gha` en CI (aucun droit `packages: write` en plus) ; `local` (`.buildx-cache`) sur poste de travail |
+| Tags | Cible `docker-metadata-action`, redéfinie en release par `docker/metadata-action` (tags SemVer) |
+| Cibles | `api` (index multi-arch), `api-local` (amd64 chargée dans Docker pour Dive, Trivy et Compose) |
+
+Deux pièges évités :
+- **Pas de `--load` en multi-arch.** Un index multi-arch ne peut pas être chargé dans un démon Docker classique (`overlay2`). Les contrôles s'appliquent donc à des variantes mono-architecture chargées depuis le même cache.
+- **Pas d'export de cache depuis `api-local`.** Un export `gha` remplace l'index du `scope`. Si `api-local` exportait aussi, il effacerait le cache multi-arch dont la release a besoin.
+
+### Pipeline CI/CD mis à jour
+
+- **build**
+  - Préparation : QEMU (`setup-qemu-action`), puis builder `docker-container` (`setup-buildx-action`).
+  - `bake api` : construction amd64 + arm64, qui alimente le cache GHA en mode max.
+  - `bake api-local` : variantes amd64 et arm64 chargées depuis ce cache.
+  - Contrôle bloquant de l'étanchéité du jeton (historique `--no-trunc` et toutes les couches), puis Dive.
+- **security** : Trivy (vulnérabilités **et secrets**) sur **chaque** architecture, plus `trivy fs`.
+- **integration** : Compose, l'image de test est construite avec le secret de build monté.
+- **release** (tag SemVer) : `bake api --push` avec les tags calculés par `metadata-action`. Le build est servi par le cache du build validé.
+  - Deux contrôles bloquants après la publication : l'index publié est inspecté, et les couches (`diff_ids`) de l'image amd64 publiée doivent être **identiques** à celles de l'image testée.
+- **Actions ajoutées**, épinglées par SHA (versions publiées depuis au moins deux semaines) :
+  - `setup-qemu-action` v4.4.0
+  - `setup-buildx-action` v4.4.1
+  - `bake-action` v7.4.0 (la v7.5.0 était trop récente)
+
+### Preuves d'exécution (local, builder `docker-container` BuildKit v0.33.1)
+
+**Build multi-arch et cache**
+
+| Scénario | Durée | Téléchargements pip |
+|---|---|---|
+| Build à froid, amd64 + arm64 | 228 s | Tous (arm64 réutilise déjà les roues « pures » téléchargées pour amd64) |
+| Rebuild complet, cache chaud | 35 s | Aucun, 12 étapes `CACHED` |
+| `click` 8.5.0 → 8.2.1 (une dépendance mineure modifiée) | 19 s | **`click` uniquement** |
+
+```
+$ docker buildx bake api-local --progress=plain      # requirements.txt : click==8.2.1
+#15 [builder 4/5] COPY requirements.txt .
+Jeton du depot interne verifie (tmpfs, contenu non affiche)
+Using cached blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Downloading click-8.2.1-py3-none-any.whl (102 kB)
+Using cached flask-3.1.3-py3-none-any.whl (103 kB)
+Using cached itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Using cached markupsafe-3.0.4-cp315-cp315-manylinux2014_x86_64[…].whl (23 kB)
+Using cached psycopg2_binary-2.9.13-cp315-cp315-manylinux2014_x86_64[…].whl (4.3 MB)
+Using cached werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Successfully installed Flask-3.1.3 […] click-8.2.1 […]
+```
+
+**Aucun résidu de cache dans l'image finale** (88,5 Mo, Dive 99,72 %)
+```
+$ docker run --rm --entrypoint python api:ci -c "…"
+repertoires de cache pip : aucun
+/run/secrets/pip_token present : False
+```
+Le seul `.whl` présent, `/usr/share/python-wheels/pip-26.2.2-py3-none-any.whl`, appartient à l'image de base Chainguard (support de `venv`). Il ne vient pas du cache.
+
+**Étanchéité du jeton** : images auditées par analyse octet par octet de chaque blob dans un conteneur Linux. L'étage `builder` est audité aussi, alors qu'il n'est jamais publié.
+```
+$ docker history --no-trunc api:ci | grep -F -f secrets/pip_token        -> 0 occurrence
+$ docker history --no-trunc api:builder-audit | grep -F -f …               -> 0 occurrence
+api_ci.tar            : 30 blobs analyses | occurrences du jeton = 0 | fichiers nommes pip_token = 0
+api_builder-audit.tar : 32 blobs analyses | occurrences du jeton = 0 | fichiers nommes pip_token = 0
+$ trivy image --scanners secret api:ci                 -> exit 0
+$ trivy image --scanners secret api:builder-audit      -> exit 0
+```
+Contre-épreuve avec l'anti-pattern du cours (`ARG PIP_TOKEN`, jeton factice) : le même contrôle **détecte** la fuite.
+```
+ARG PIP_TOKEN=<JETON FACTICE EN CLAIR>
+RUN |1 PIP_TOKEN=<JETON FACTICE EN CLAIR> /bin/sh -c echo "auth ok" > /tmp/marker # buildkit
+leak.tar : 26 blobs analyses | occurrences du jeton = 1
+```
+
+**Le jeton n'entre ni dans le contexte de build ni dans git**
+```
+$ docker buildx build -f probe/Dockerfile .     # COPY . /ctx && find /ctx -type f
+/ctx/app.py
+/ctx/requirements-dev.txt
+/ctx/requirements.txt
+$ git check-ignore -v secrets/pip_token
+.gitignore:9:secrets/   secrets/pip_token
+```
+
+**Index OCI multi-arch** (export `type=oci` de la cible `api`)
+```
+mediaType : application/vnd.oci.image.index.v1+json
+  - linux/amd64      sha256:ae10cd06b758  (image)
+  - linux/arm64      sha256:ae79c541d50d  (image)
+  - unknown/unknown  sha256:5eb89df5eadf  (attestation-manifest)
+  - unknown/unknown  sha256:72752abfe53d  (attestation-manifest)
+```
+
+**Exécution réelle de la variante arm64** (QEMU)
+```
+$ docker run --rm --platform linux/arm64 --entrypoint python api:arm64 -c "…"
+machine = aarch64 | flask 3.1.3 | psycopg2 2.9.13
+$ curl http://127.0.0.1:5055/health
+{"status":"ok"}
+```
+Les roues natives `aarch64` de `psycopg2-binary` et `markupsafe` existent pour CPython 3.15 : aucune compilation sous émulation.
+
 ## Lancer le projet en local
 
 ```bash
 cp .env.example .env                       # valeurs non sensibles uniquement
 mkdir -p secrets && openssl rand -hex 24 > secrets/db_password.txt
+openssl rand -hex 32 > secrets/pip_token  # jeton simulé du dépôt interne (secret de build)
 docker compose up -d --build --wait
 curl http://127.0.0.1:5000/health
 curl http://127.0.0.1:5000/dbtest
 docker compose --profile test run --rm tests
 docker compose --profile test down -v
+```
+
+Build multi-arch déclaratif (Bake) :
+
+```bash
+docker buildx create --name tp2-builder --driver docker-container --bootstrap
+docker buildx bake --builder tp2-builder              # index amd64 + arm64 (cache local mode=max)
+docker buildx bake --builder tp2-builder api-local    # variante amd64 chargée dans Docker (api:ci)
 ```
