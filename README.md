@@ -9,23 +9,26 @@
 | API Flask durcie | https://github.com/IsmailMifdal/devescops_TP1/pkgs/container/devescops_tp1 |
 
 ```bash
-docker pull ghcr.io/ismailmifdal/devescops_tp1:1.1.0   # version courante (immuable)
-docker pull ghcr.io/ismailmifdal/devescops_tp1:1.1     # dernier correctif de la 1.1
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.2.0   # version courante (immuable), index amd64 + arm64
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.2     # dernier correctif de la 1.2
 docker pull ghcr.io/ismailmifdal/devescops_tp1:1       # dernière version de la 1.x
-docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0.0   # première release
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0.0   # première release (amd64 seule)
+
+# Le client choisit automatiquement l'architecture ; pour forcer :
+docker pull --platform linux/arm64 ghcr.io/ismailmifdal/devescops_tp1:1.2.0
 ```
 
 Test rapide de l'image publiée :
 
 ```bash
-docker run --rm -p 127.0.0.1:5000:5000 ghcr.io/ismailmifdal/devescops_tp1:1.1.0
+docker run --rm -p 127.0.0.1:5000:5000 ghcr.io/ismailmifdal/devescops_tp1:1.2.0
 curl http://127.0.0.1:5000/health
 ```
 
 | Version | Contenu |
 |---|---|
 | 1.0.0 | Première release durcie |
-| 1.1.0 | Mot de passe PostgreSQL lu depuis un secret monté par fichier (`DB_PASSWORD_FILE`), digests Chainguard renouvelés (4 CVE HIGH corrigées dans la base, Python 3.15) |
+| 1.2.0 | Index multi-arch **linux/amd64 + linux/arm64** construit par Bake, cache BuildKit, secret de build en tmpfs (TP2, étape 1). Inclut aussi les correctifs préparés pour la 1.1.0, jamais publiée seule : mot de passe PostgreSQL en secret monté par fichier (`DB_PASSWORD_FILE`), politique Hadolint explicite, digests Chainguard renouvelés (4 CVE HIGH corrigées, Python 3.15) |
 
 ## 2. Comparatif Avant / Après
 
@@ -463,6 +466,53 @@ $ curl http://127.0.0.1:5055/health
 {"status":"ok"}
 ```
 Les roues natives `aarch64` de `psycopg2-binary` et `markupsafe` existent pour CPython 3.15 : aucune compilation sous émulation.
+
+### Preuves CI et publication GHCR
+
+- Run sur `main` (toutes les barrières vertes) : https://github.com/IsmailMifdal/devescops_TP1/actions/runs/40312096080
+- Run de release `v1.2.0` (6/6 jobs verts) : https://github.com/IsmailMifdal/devescops_TP1/actions/runs/40316553701
+
+| Job | `main` | `v1.2.0` |
+|---|---|---|
+| Flake8 | 11 s | 9 s |
+| Hadolint | 5 s | 5 s |
+| Build multi-arch (Bake) et Dive | 188 s | **66 s** (cache GHA chaud) |
+| Trivy amd64 + arm64 | 37 s | 26 s |
+| Intégration Compose | 63 s | 63 s |
+| Publication GHCR multi-arch | ignorée (hors tag) | 51 s |
+
+Étapes de la release, dont les deux contrôles bloquants qui suivent la publication :
+```
+success - Publication de l'index multi-arch (Bake, cache GHA du build validé)
+success - Index OCI publié (amd64 + arm64)
+success - Intégrité - les couches amd64 publiées sont celles de l'image testée
+success - Purge du jeton éphémère
+```
+
+Index publié, inspecté depuis un poste sans authentification :
+```
+$ docker buildx imagetools inspect ghcr.io/ismailmifdal/devescops_tp1:1.2.0
+Name:      ghcr.io/ismailmifdal/devescops_tp1:1.2.0
+MediaType: application/vnd.oci.image.index.v1+json
+Digest:    sha256:ed73e4e98ef88c81b81335b639ccf7af262a0e9cf9514a0e8e6074c347b88614
+Manifests:
+  Platform:    linux/amd64      @sha256:46ae2ae9c276645fab842f4c553ef67c22f2d510cc7e60db33b867825d281919
+  Platform:    linux/arm64      @sha256:c85c02e50e0e121ca4ec6bab9bfdfb722c9cddf3df46af7c8d182bb7251a3dd3
+  Platform:    unknown/unknown  (attestation-manifest -> amd64)
+  Platform:    unknown/unknown  (attestation-manifest -> arm64)
+
+tag 1.2         -> sha256:ed73e4e98ef88c81b81335b639ccf7af262a0e9cf9514a0e8e6074c347b88614
+tag 1           -> sha256:ed73e4e98ef88c81b81335b639ccf7af262a0e9cf9514a0e8e6074c347b88614
+tag sha-773723f -> sha256:ed73e4e98ef88c81b81335b639ccf7af262a0e9cf9514a0e8e6074c347b88614
+```
+
+Déploiement transparent sur les deux familles de processeurs (pull anonyme) :
+```
+$ docker run --rm --platform linux/amd64 --entrypoint python ghcr.io/ismailmifdal/devescops_tp1:1.2.0 -c "…"
+x86_64 | uid 65532 | flask 3.1.3
+$ docker run --rm --platform linux/arm64 --entrypoint python ghcr.io/ismailmifdal/devescops_tp1:1.2.0 -c "…"
+aarch64 | uid 65532 | flask 3.1.3
+```
 
 ## Lancer le projet en local
 
