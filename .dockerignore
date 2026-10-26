@@ -16,6 +16,7 @@
 # Environnement et secrets
 .env
 .env.*
+secrets
 *.pem
 *.key
 # Métadonnées Git / CI

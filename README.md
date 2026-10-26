@@ -9,31 +9,39 @@
 | API Flask durcie | https://github.com/IsmailMifdal/devescops_TP1/pkgs/container/devescops_tp1 |
 
 ```bash
-docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0.0
-docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0
-docker pull ghcr.io/ismailmifdal/devescops_tp1:1
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.1.0   # version courante (immuable)
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.1     # dernier correctif de la 1.1
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1       # dernière version de la 1.x
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0.0   # première release
 ```
 
 Test rapide de l'image publiée :
 
 ```bash
-docker run --rm -p 127.0.0.1:5000:5000 ghcr.io/ismailmifdal/devescops_tp1:1.0.0
+docker run --rm -p 127.0.0.1:5000:5000 ghcr.io/ismailmifdal/devescops_tp1:1.1.0
 curl http://127.0.0.1:5000/health
 ```
+
+| Version | Contenu |
+|---|---|
+| 1.0.0 | Première release durcie |
+| 1.1.0 | Mot de passe PostgreSQL lu depuis un secret monté par fichier (`DB_PASSWORD_FILE`), digests Chainguard renouvelés (4 CVE HIGH corrigées dans la base, Python 3.15) |
 
 ## 2. Comparatif Avant / Après
 
 | Critère | Avant (`python:3.10-slim`) | Après (Chainguard Python) |
 |---|---|---|
-| Poids de l'image | 148 Mo | 84,7 Mo |
+| Poids de l'image | 148 Mo | 88,5 Mo |
 | Utilisateur d'exécution | `root` | `65532` (nonroot) |
 | Shell présent | Oui (`/bin/sh`, `bash`) | Non |
 | Gestionnaire de paquets / pip | Oui (`apt`, `pip`) | Non |
 | CVE Trivy (toutes sévérités) | 185 (47 HIGH, 73 MEDIUM, 63 LOW, 2 UNKNOWN) | 0 |
 | CVE Trivy HIGH/CRITICAL corrigibles | 3 | 0 |
 | CVE Python (`requirements.txt`) | 19 entrées / 3 paquets | 0 |
-| Efficience Dive | 97,35 % (5,7 Mo gaspillés) | 99,72 % (237 ko gaspillés) |
+| Efficience Dive | 97,35 % (5,7 Mo gaspillés) | 99,72 % (251 ko gaspillés) |
 | Base PostgreSQL | `postgres:14-alpine` (tag mouvant) | `cgr.dev/chainguard/postgres` épinglée par digest |
+| Mot de passe BDD | En clair dans `docker-compose.yml` (`testpass`) et en dur dans `app.py` | Secret Compose monté par fichier, absent de toute variable d'environnement |
+| Politique Hadolint | Aucune | 25 règles explicites, toutes bloquantes |
 
 ## 3. Images de base retenues
 
@@ -48,6 +56,8 @@ Chainguard a été préféré à Distroless car ses images sont reconstruites en
 
 **Immuabilité et reproductibilité** : l'offre gratuite Chainguard ne publie que le tag `latest`. Toutes les images sont donc épinglées par **digest SHA256** (`image:latest@sha256:...`) : le digest identifie un contenu unique et immuable, le tag n'est plus qu'une annotation. Les dépendances Python sont épinglées en `==` sur l'arbre complet. Les outils CI (Hadolint, Dive, Trivy) sont téléchargés en version fixe et vérifiés par SHA256.
 
+**Renouvellement des digests** : un digest figé ne reçoit plus de correctifs ; c'est le scan Trivy bloquant qui déclenche sa mise à jour. Exemple réel : 18 jours après la v1.0.0, Trivy a signalé 4 CVE HIGH corrigeables dans la base (`ca-certificates-bundle` CVE-2026-111943, `libbrotlicommon1` CVE-2026-111497). Les digests `python:latest` et `python:latest-dev` ont été renouvelés ensemble, ce qui garantit la même version de Python (3.15.0) dans les deux étages. Le venv construit dans l'un reste donc exécutable dans l'autre. Le digest PostgreSQL a été renouvelé dans la même version majeure (18.6), ce qui garde le volume de données compatible.
+
 ## 4. Healthchecks sans shell
 
 Dans une image sans shell, `CMD-SHELL` et `curl`/`wget` sont indisponibles. Les deux sondes utilisent la forme exec `["CMD", ...]`, exécutée directement par le runtime de conteneurs.
@@ -56,7 +66,33 @@ Dans une image sans shell, `CMD-SHELL` et `curl`/`wget` sont indisponibles. Les 
 - **PostgreSQL** : `["CMD", "pg_isready", "-h", "127.0.0.1", "-U", "<user>", "-d", "<db>"]`, utilitaire client fourni dans l'image. `-h 127.0.0.1` force une connexion TCP : pendant l'initialisation, le serveur temporaire n'écoute que sur le socket local, la sonde ne passe donc au vert qu'une fois le vrai serveur prêt.
 - **Synchronisation** : `depends_on: condition: service_healthy` empêche l'API de démarrer avant que PostgreSQL soit sain ; en CI, `docker compose up --wait --wait-timeout 120` attend l'état sain des deux services avec un délai maîtrisé.
 
-Autres durcissements Compose : réseau `backend` en `internal: true` (base injoignable depuis l'hôte et Internet, port 5432 non publié), API publiée uniquement sur `127.0.0.1`, système de fichiers de l'API en lecture seule, `cap_drop: ALL`, `no-new-privileges`, secrets lus depuis un `.env` non versionné.
+### Mot de passe PostgreSQL : secret monté par fichier
+
+Une variable d'environnement n'est pas un coffre : elle se lit avec `docker inspect`, dans `/proc/<pid>/environ` et dans `docker compose config`, et elle est héritée par tous les processus enfants. Le mot de passe ne transite donc plus par l'environnement :
+
+```yaml
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt     # non versionné (.gitignore), exclu du contexte de build (.dockerignore)
+
+services:
+  db:
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password   # lu par file_env dans l'entrypoint Chainguard
+    secrets: [db_password]
+  api-python:
+    environment:
+      DB_PASSWORD_FILE: /run/secrets/db_password          # lu par read_secret() dans app.py
+    secrets: [db_password]
+```
+
+- Seuls les services qui déclarent `secrets: [db_password]` (base, API, tests) voient le fichier, monté en lecture seule dans `/run/secrets/`.
+- Côté API, `read_secret("DB_PASSWORD")` lit `DB_PASSWORD_FILE` et ne garde `DB_PASSWORD` qu'en repli. Le mot de passe par défaut `testpass`, codé en dur, a été supprimé.
+- Côté PostgreSQL, l'entrypoint de l'image Chainguard applique la convention `*_FILE` (fonction `file_env`), comme l'image officielle.
+- Le `.env` ne contient plus que des valeurs non sensibles (`POSTGRES_USER`, `POSTGRES_DB`).
+- En CI, le secret est un fichier éphémère : `openssl rand -hex 24`, mode `0444`, supprimé au teardown. Un secret `file` hors Swarm est un bind mount qui garde le mode de l'hôte, d'où la lecture ouverte aux UID non-root des conteneurs (postgres et 65532). Une étape bloquante vérifie avec `docker inspect` que le mot de passe n'apparaît dans l'environnement d'aucun conteneur.
+
+Autres durcissements Compose : réseau `backend` en `internal: true` (base injoignable depuis l'hôte et Internet, port 5432 non publié), API publiée uniquement sur `127.0.0.1`, système de fichiers de l'API en lecture seule, `cap_drop: ALL`, `no-new-privileges`.
 
 ## 5. Journal des remédiations
 
@@ -73,6 +109,30 @@ Le code passait la configuration fournie uniquement grâce aux règles ignorées
 | test_app.py | W292 (pas de saut de ligne final) | 1 | Ajouté |
 
 Le marqueur `integration` est déclaré dans `pytest.ini` (supprime l'avertissement `PytestUnknownMarkWarning`).
+
+### Gouvernance Hadolint
+
+`.hadolint.yaml` fixe le seuil d'échec à `warning`, n'autorise aucune dérogation (`ignored: []`) et liste **explicitement** chaque règle de la politique d'équipe avec sa sévérité. On ne dépend plus des sévérités par défaut de l'outil, qui peuvent changer d'une version à l'autre.
+
+| Sévérité | Règle | Exigence |
+|---|---|---|
+| error | DL3002 | Dernier `USER` non root |
+| error | DL3006, DL3007 | Pas d'image sans tag, pas de `:latest` sans digest |
+| error | DL4006 | `SHELL -o pipefail` avant tout `RUN` avec pipe |
+| error | DL3026 | Registres limités à docker.io, gcr.io, cgr.dev, ghcr.io |
+| error | DL3004 | Pas de `sudo` |
+| warning | DL3025, DL4003, DL4004 | `CMD`/`ENTRYPOINT` en forme JSON exec, une seule instance |
+| warning | DL3042, DL3013 | `pip --no-cache-dir`, versions épinglées |
+| warning | DL3020, DL3021, DL3045 | `COPY` explicite plutôt que `ADD`, destinations non ambiguës |
+| warning | DL3022, DL3023, DL3024 | `COPY --from` vers un étage déclaré, alias uniques |
+| warning | DL3000, DL3003 | `WORKDIR` absolu, pas de `cd` |
+| warning | SC2086, SC2046 | Variables et substitutions entre guillemets |
+| warning | SC2164, SC2155 | `cd ... \|\| exit`, codes retour non masqués |
+| warning | DL4000 | Pas de `MAINTAINER` |
+
+Point notable : **SC2086** (variable non protégée) est au niveau `info` par défaut dans Hadolint. Avec un simple `failure-threshold: warning`, elle passerait donc sans bloquer. La politique la rehausse explicitement en `warning`.
+
+La politique a été testée sur deux Dockerfiles volontairement fautifs : chacune des 25 règles est levée et le code retour vaut 1 (voir les preuves en section 7).
 
 ### Dépendances Python
 
@@ -100,7 +160,7 @@ Choix :
 - **Artefact unique** : l'image construite une seule fois est transmise aux jobs suivants ; c'est exactement cette image, scannée et testée, qui est publiée.
 - **SemVer** : déclenchement sur tag `vX.Y.Z`. Tags publiés : `X.Y.Z` (immuable), `X.Y` et `X` (flottants pour suivre les correctifs), `sha-<commit>` (traçabilité). Pas de tag `latest`.
 
-Pipeline : `flake8` + `hadolint` → `build` (BuildKit + Dive ≥ 80 %) → `security` (Trivy) + `integration` (Compose, /health, /dbtest, pytest) → `release` (GHCR).
+Pipeline : `flake8` + `hadolint` → `build` (BuildKit + Dive ≥ 80 %) → `security` (Trivy) + `integration` (Compose avec secret, contrôle d'exposition du mot de passe, /health, /dbtest, pytest) → `release` (GHCR).
 
 ## 7. Preuves d'exécution
 
@@ -126,12 +186,48 @@ $ echo $?
 0
 ```
 
+Contre-épreuve : la politique appliquée à deux Dockerfiles volontairement fautifs (`hadolint v2.15.1`) lève chacune des 25 règles :
+```
+$ hadolint --config .hadolint.yaml Dockerfile.bad
+:1 DL3026 error: Use only an allowed registry in the FROM image
+:2 DL3006 error: Always tag the version of an image explicitly
+:3 DL3024 warning: FROM aliases (stage names) must be unique
+:3 DL3007 error: Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag
+:4 DL4000 warning: MAINTAINER is deprecated
+:5 DL3045 warning: `COPY` to a relative destination without `WORKDIR` set.
+:6 DL3000 warning: Use absolute WORKDIR
+:7 DL3020 warning: Use COPY instead of ADD for files and folders
+:8 DL3021 warning: COPY with more than 2 arguments requires the last argument to end with /
+:9 DL3022 warning: `COPY --from` should reference a previously defined `FROM` alias
+:10 DL3003 warning: Use WORKDIR to switch to a directory
+:10 DL3004 error: Do not use sudo as it leads to unpredictable behavior. Use a tool like gosu to enforce root
+:11 DL3013 warning: Pin versions in pip. [...]
+:12 DL4006 error: Set the SHELL option -o pipefail before RUN with a pipe in it. [...]
+:13 SC2046 warning: Quote this to prevent word splitting.
+:14 SC2155 warning: Declare and assign separately to avoid masking return values.
+:15 DL3025 warning: Use arguments JSON notation for CMD and ENTRYPOINT arguments
+:16 DL4003 warning: Multiple `CMD` instructions found. [...]
+:18 DL4004 warning: Multiple `ENTRYPOINT` instructions found. [...]
+:19 DL3002 error: Last USER should not be root
+$ echo $?
+1
+
+$ hadolint --config .hadolint.yaml Dockerfile.bad2
+Dockerfile.bad2:3 DL3023 warning: `COPY --from` cannot reference its own `FROM` alias
+Dockerfile.bad2:4 DL3042 warning: Avoid use of cache directory with pip. Use `pip install --no-cache-dir <package>`
+Dockerfile.bad2:5 SC2086 warning: Double quote to prevent globbing and word splitting.
+Dockerfile.bad2:6 SC2164 warning: Use 'cd ... || exit' or 'cd ... || return' in case cd fails.
+Dockerfile.bad2:6 DL3003 warning: Use WORKDIR to switch to a directory
+$ echo $?
+1
+```
+
 ### Dive (efficience ≥ 80 %)
 ```
 $ CI=true dive --ci --lowestEfficiency=0.8 api:ci
-  efficiency: 99.7206 %
-  wastedBytes: 237208 bytes (237 kB)
-  userWastedPercent: 0.4940 %
+  efficiency: 99.7170 %
+  wastedBytes: 250844 bytes (251 kB)
+  userWastedPercent: 0.5155 %
 Results:
   PASS: highestUserWastedPercent
   SKIP: highestWastedBytes: rule disabled
@@ -158,7 +254,7 @@ $ trivy fs --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignor
 │ requirements.txt │ pip  │ 0 │ - │
 ```
 
-Toutes sévérités confondues (`trivy image`, sans filtre) : 185 CVE sur l'image d'origine, 0 sur l'image durcie.
+Toutes sévérités confondues (`trivy image`, sans filtre) : 185 CVE sur l'image d'origine, 0 sur l'image durcie (v1.1.0, base Chainguard renouvelée).
 
 ### Compose : services sains
 ```
@@ -175,17 +271,31 @@ $ curl -fsS http://127.0.0.1:5000/dbtest
 {"db_connection":"successful"}
 ```
 
+### Secret PostgreSQL non exposé
+```
+$ docker compose config | grep -i password
+      DB_PASSWORD_FILE: /run/secrets/db_password
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+$ docker inspect --format '{{range .Config.Env}}{{println .}}{{end}}' devsecops-tp1-api-python-1 | grep -i pass
+DB_PASSWORD_FILE=/run/secrets/db_password
+$ docker inspect --format '{{range .Config.Env}}{{println .}}{{end}}' devsecops-tp1-db-1 | grep -i pass
+POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+# Le secret est bien appliqué par PostgreSQL : un mauvais mot de passe est refusé
+$ docker compose exec -T api-python python -c "import psycopg2; psycopg2.connect(host='db', dbname='testdb', user='testuser', password='mauvais')"
+FATAL:  password authentication failed for user "testuser"
+```
+
 ### Tests d'intégration
 ```
 $ docker compose --profile test run --rm tests
-platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /app/venv/bin/python
+platform linux -- Python 3.15.0, pytest-9.1.1, pluggy-1.6.0 -- /app/venv/bin/python
 collected 3 items
 
 test_app.py::test_health PASSED                                          [ 33%]
 test_app.py::test_hello PASSED                                           [ 66%]
 test_app.py::test_dbtest PASSED                                          [100%]
 
-============================== 3 passed in 0.30s ===============================
+============================== 3 passed in 0.82s ===============================
 ```
 
 ### Contrôles du runtime
@@ -214,7 +324,8 @@ uid 65532
 ## Lancer le projet en local
 
 ```bash
-cp .env.example .env        # puis changer le mot de passe
+cp .env.example .env                       # valeurs non sensibles uniquement
+mkdir -p secrets && openssl rand -hex 24 > secrets/db_password.txt
 docker compose up -d --build --wait
 curl http://127.0.0.1:5000/health
 curl http://127.0.0.1:5000/dbtest

@@ -15,7 +15,10 @@ services:
       DB_PORT: "5432"
       DB_NAME: ${POSTGRES_DB:?POSTGRES_DB manquant dans .env}
       DB_USER: ${POSTGRES_USER:?POSTGRES_USER manquant dans .env}
-      DB_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}
+      # Le mot de passe n'est jamais dans l'environnement : fichier secret monté
+      DB_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_password
     depends_on:
       db:
         condition: service_healthy
@@ -42,12 +45,15 @@ services:
       start_period: 10s
 
   db:
-    image: cgr.dev/chainguard/postgres:latest@sha256:0c4eaf6cb9bd65337d834f5ebfe79add4312ee2125ab584bf1fbc071abc6bb8f
+    image: cgr.dev/chainguard/postgres:latest@sha256:b32c0efe4c15bbc08fcd801f619a7d98d44f3f8eca3ec89efad4941a56e8741c
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER manquant dans .env}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}
+      # Lu par file_env dans l'entrypoint de l'image (convention *_FILE)
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
       POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB manquant dans .env}
+    secrets:
+      - db_password
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -83,7 +89,9 @@ services:
       DB_PORT: "5432"
       DB_NAME: ${POSTGRES_DB}
       DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_password
     volumes:
       - ./test_app.py:/app/test_app.py:ro
       - ./pytest.ini:/app/pytest.ini:ro
@@ -103,3 +111,9 @@ networks:
 
 volumes:
   db-data:
+
+secrets:
+  # Fichier local non versionné (.gitignore / .dockerignore), monté en
+  # lecture seule dans /run/secrets/db_password des seuls services déclarés
+  db_password:
+    file: ./secrets/db_password.txt

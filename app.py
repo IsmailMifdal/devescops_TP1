@@ -4,11 +4,21 @@ import os
 
 app = Flask(__name__)
 
+
+def read_secret(name):
+    """Lit un secret depuis le fichier <NAME>_FILE (secret Compose monté)."""
+    path = os.getenv(f"{name}_FILE")
+    if path:
+        with open(path, encoding="utf-8") as secret_file:
+            return secret_file.read().rstrip("\r\n")
+    return os.getenv(name)
+
+
 DB_HOST = os.getenv("DB_HOST", "db")
 DB_PORT = os.getenv("DB_PORT", "5432")
 DB_NAME = os.getenv("DB_NAME", "testdb")
 DB_USER = os.getenv("DB_USER", "testuser")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "testpass")
+DB_PASSWORD = read_secret("DB_PASSWORD")
 
 
 @app.route("/health")

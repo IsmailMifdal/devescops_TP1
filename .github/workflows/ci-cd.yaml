@@ -152,17 +152,31 @@ jobs:
         run: |
           docker load -i api-image.tar
           docker tag "${IMAGE_LOCAL}" devsecops-tp1-api:local
-      - name: Générer un .env éphémère (mot de passe aléatoire)
+      - name: Générer la configuration et le secret éphémères
         run: |
           {
             echo "POSTGRES_USER=testuser"
             echo "POSTGRES_DB=testdb"
-            echo "POSTGRES_PASSWORD=$(openssl rand -hex 24)"
           } > .env
+          # Secret Compose monté par fichier ; lisible par les UID non-root des
+          # conteneurs (postgres, 65532) car un secret « file » est un bind mount
+          mkdir -p secrets
+          openssl rand -hex 24 > secrets/db_password.txt
+          chmod 0444 secrets/db_password.txt
       - name: Démarrage et attente de l'état sain (timeout 120 s)
         run: docker compose up -d --no-build --wait --wait-timeout 120
       - name: État des services
         run: docker compose ps
+      - name: Le mot de passe n'est exposé dans l'environnement d'aucun conteneur
+        run: |
+          for c in $(docker compose ps -q); do
+            if docker inspect --format '{{range .Config.Env}}{{println .}}{{end}}' "$c" \
+              | grep -qF -- "$(cat secrets/db_password.txt)"; then
+              echo "::error::Mot de passe exposé dans l'environnement de $c"
+              exit 1
+            fi
+          done
+          echo "OK : aucun conteneur n'expose le mot de passe en variable d'environnement"
       - name: Smoke test /health
         run: curl -fsS --retry 5 --retry-connrefused http://127.0.0.1:5000/health
       - name: Smoke test /dbtest
@@ -176,7 +190,9 @@ jobs:
         run: docker compose logs
       - name: Teardown
         if: always()
-        run: docker compose --profile test down -v --remove-orphans
+        run: |
+          docker compose --profile test down -v --remove-orphans
+          rm -rf secrets .env
 
   # ---------------------------------------------------------------
   # 6. Publication GHCR (uniquement sur tag SemVer, si tout est vert)

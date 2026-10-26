@@ -1,16 +1,58 @@
-# Gouvernance d'équipe : politique de conteneurisation
-# Tout avertissement (warning) ou erreur fait échouer l'audit
+# =====================================================================
+# Gouvernance d'équipe : politique de conteneurisation opposable
+# Toute règle listée ici est bloquante en CI (seuil d'échec = warning).
+# =====================================================================
+
+# Seuil d'échec global : tout warning ou error fait échouer l'audit
 failure-threshold: warning
+no-fail: false
 
-# Règles de sécurité rehaussées en erreur bloquante
+# Aucune dérogation autorisée : aucune règle n'est ignorée
+ignored: []
+
 override:
+  # -------------------------------------------------------------------
+  # Sécurité : rehaussées en ERROR
+  # -------------------------------------------------------------------
   error:
-    - DL3002 # Interdiction de terminer l'image en root
+    - DL3002 # Le dernier USER ne doit pas être root
     - DL3006 # Image de base sans tag explicite interdite
-    - DL3007 # Interdiction du tag mouvant :latest (version stricte ou digest SHA256)
-    - DL4006 # SHELL -o pipefail obligatoire avant tout RUN avec pipe
+    - DL3007 # Tag mouvant :latest interdit (version stricte ou digest SHA256)
+    - DL4006 # SHELL ["/bin/bash", "-o", "pipefail", "-c"] obligatoire avant un RUN avec pipe
+    - DL3026 # Registre hors liste blanche (trustedRegistries) interdit
+    - DL3004 # sudo interdit dans un RUN
 
-# Liste blanche des registres approuvés (DL3026)
+  # -------------------------------------------------------------------
+  # Standards d'équipe : explicitement WARNING (donc bloquants)
+  # -------------------------------------------------------------------
+  warning:
+    # Démarrage applicatif
+    - DL3025 # CMD/ENTRYPOINT en forme JSON exec obligatoire
+    - DL4003 # Une seule instruction CMD
+    - DL4004 # Une seule instruction ENTRYPOINT
+    # Installation des modules applicatifs
+    - DL3042 # pip install --no-cache-dir obligatoire (pas de cache dans les couches)
+    - DL3013 # Versions des paquets pip épinglées
+    # Copies explicites
+    - DL3020 # COPY au lieu de ADD pour les fichiers et dossiers
+    - DL3021 # COPY à plusieurs sources : la destination doit finir par /
+    - DL3045 # COPY vers un chemin relatif sans WORKDIR interdit
+    # Multi-stage
+    - DL3022 # COPY --from doit référencer un étage FROM ... AS déclaré
+    - DL3023 # COPY --from ne peut pas référencer son propre étage
+    - DL3024 # Alias d'étages FROM uniques
+    # Répertoire d'exécution
+    - DL3000 # WORKDIR absolu
+    - DL3003 # WORKDIR au lieu de cd
+    # ShellCheck : protection des variables et du répertoire courant
+    - SC2086 # Variables entre guillemets (globbing / découpage de mots)
+    - SC2046 # Substitutions de commande entre guillemets
+    - SC2164 # cd ... || exit (pas de poursuite dans le mauvais répertoire)
+    - SC2155 # Déclarer puis affecter séparément (ne pas masquer les codes retour)
+    # Hygiène
+    - DL4000 # MAINTAINER déprécié (utiliser LABEL)
+
+# Liste blanche stricte des registres approuvés (DL3026)
 trustedRegistries:
   - docker.io
   - gcr.io

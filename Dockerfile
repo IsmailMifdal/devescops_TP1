@@ -3,7 +3,7 @@
 # =====================================================================
 # Etage 1 : builder (image -dev : pip + shell, jamais livree)
 # =====================================================================
-FROM cgr.dev/chainguard/python:latest-dev@sha256:894aed3297d91283e1fc4c542f5374a4b5f3726134fda7c94eaa539342be1e05 AS builder
+FROM cgr.dev/chainguard/python:latest-dev@sha256:dde1a2549dd62864f0263dae8e877680837b4e738a7ecc85c671c55c069848ac AS builder
 WORKDIR /app
 # venv SANS pip : aucun gestionnaire de paquets ne sera livre dans le runtime
 RUN python -m venv --without-pip /app/venv
@@ -25,7 +25,7 @@ ENTRYPOINT ["python", "-m", "pytest", "-v", "-p", "no:cacheprovider"]
 # =====================================================================
 # Etage 3 : runtime (sans shell, sans pip, sans compilateur, non-root)
 # =====================================================================
-FROM cgr.dev/chainguard/python:latest@sha256:b6248c85ba9b97e1e61b30197f309cc4d21661f889fefa5268f0a7bc530dad46 AS runtime
+FROM cgr.dev/chainguard/python:latest@sha256:49fd266eb8a1331194c318b742087c7a2939cc5794fa64f17feb9e17e12703e2 AS runtime
 WORKDIR /app
 ENV PATH="/app/venv/bin:${PATH}" \
     PYTHONDONTWRITEBYTECODE=1 \
