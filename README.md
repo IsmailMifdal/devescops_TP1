@@ -257,7 +257,7 @@ $ trivy fs --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignor
 │ requirements.txt │ pip  │ 0 │ - │
 ```
 
-Toutes sévérités confondues (`trivy image`, sans filtre) : 185 CVE sur l'image d'origine, 0 sur l'image durcie (v1.1.0, base Chainguard renouvelée).
+Toutes sévérités confondues (`trivy image`, sans filtre) : 185 CVE sur l'image d'origine, 0 sur l'image durcie (v1.2.0, base Chainguard renouvelée).
 
 ### Compose : services sains
 ```
