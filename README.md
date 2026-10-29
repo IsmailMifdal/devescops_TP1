@@ -27,8 +27,9 @@ curl http://127.0.0.1:5000/health
 
 | Version | Contenu |
 |---|---|
-| 1.0.0 | Première release durcie |
-| 1.2.0 | Index multi-arch **linux/amd64 + linux/arm64** construit par Bake, cache BuildKit, secret de build en tmpfs (TP2, étape 1). Inclut aussi les correctifs préparés pour la 1.1.0, jamais publiée seule : mot de passe PostgreSQL en secret monté par fichier (`DB_PASSWORD_FILE`), politique Hadolint explicite, digests Chainguard renouvelés (4 CVE HIGH corrigées, Python 3.15) |
+| 1.0.0 | Première release durcie (amd64) |
+| 1.1.0 | Correctifs des retours d'évaluation : mot de passe PostgreSQL en secret monté par fichier (`DB_PASSWORD_FILE`), politique Hadolint explicite, digests Chainguard renouvelés (4 CVE HIGH corrigées, Python 3.15). Image amd64 seule |
+| 1.2.0 | Index multi-arch **linux/amd64 + linux/arm64** construit par Bake, cache BuildKit, secret de build en tmpfs (TP2, étape 1) |
 
 ## 2. Comparatif Avant / Après
 

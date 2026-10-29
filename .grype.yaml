@@ -1,0 +1,23 @@
+# Politique d'audit Grype sur SBOM (TP2, étape 2)
+#
+# Usage (CI et poste de travail) :
+#   grype sbom:sbom.cdx.json -c .grype.yaml
+#
+# Porte bloquante : code retour 1 si une vulnérabilité de gravité HIGH ou
+# CRITICAL disposant d'un correctif publié subsiste après application du VEX.
+fail-on-severity: high
+only-fixed: true
+
+# Exceptions : uniquement par déclaration OpenVEX justifiée et versionnée
+# (status not_affected + justification normalisée). Grype lit le document à
+# chaque scan ; une entrée qualifiée apparaît comme « suppressed by VEX ».
+vex-documents:
+  - security.vex.json
+
+# Aucune règle d'exclusion opaque : toute exemption passe par le VEX ci-dessus.
+ignore: []
+
+# Les vulnérabilités neutralisées par le VEX restent visibles dans le rapport
+# (traçabilité de l'audit).
+show-suppressed: true
+output: table

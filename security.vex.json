@@ -1,0 +1,28 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://github.com/IsmailMifdal/devescops_TP1/blob/main/security.vex.json",
+  "author": "Ismail Mifdal",
+  "role": "Mainteneur du projet devescops_TP1",
+  "timestamp": "2026-10-29T09:00:00Z",
+  "version": 1,
+  "tooling": "Analyse manuelle ; détection Grype 0.120.1 (base du 2026-10-29)",
+  "statements": [
+    {
+      "vulnerability": {
+        "@id": "https://nvd.nist.gov/vuln/detail/CVE-2026-114583",
+        "name": "CVE-2026-114583",
+        "description": "tarfile.tar_filter contournable par des liens forgés : une archive malveillante extraite avec tarfile.extractall(filter=\"tar\") peut écrire hors du répertoire cible."
+      },
+      "timestamp": "2026-10-29T09:00:00Z",
+      "products": [
+        {
+          "@id": "pkg:apk/wolfi/python-3.15@3.15.0_git20261017-r4"
+        }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Le code vulnérable est présent (correctif CPython c6ada40 du 22/10, postérieur au snapshot Wolfi du 17/10) mais jamais exécuté. L'API n'importe que flask, psycopg2 et os ; elle ne reçoit ni n'extrait aucune archive. Vérifié dans l'image : après chargement de app.py et appel de /health et /dbtest, le module tarfile n'est pas chargé (369 modules), et aucun fichier des dépendances du venv ne le référence. Vecteur local (CVSS 4.0 AV:L), EPSS 0,23 %.",
+      "status_notes": "Correspondance établie par CPE NVD (python < 3.15.2). À retirer dès que l'image de base Chainguard embarque python-3.15 >= 3.15.2."
+    }
+  ]
+}

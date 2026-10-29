@@ -22,6 +22,14 @@ env:
   DIVE_SHA256: 0970549eb4a306f8825a84145a2534153badb4d7dcf3febd1967c706367c3d0e
   TRIVY_VERSION: 0.75.0
   TRIVY_SHA256: c6e65abddb348e25f10549df887045629cf28cc72453cd1c63acb717316b3f3f
+  SYFT_VERSION: 1.54.1
+  SYFT_SHA256: c069905b391cc4c20a5ba65ad5c10be2a7ba074f8ea6ad203e24d14e303dad47
+  GRYPE_VERSION: 0.120.1
+  GRYPE_SHA256: 0a9ee97ef5ae2ee953b0a80098105052e846cdbe319a57d808b519c33cd1343d
+  COSIGN_VERSION: v3.1.3
+  COSIGN_SHA256: 4629c757b7618056f8ddd7e2625ae9fdd94c0372a65049520bc7d9df9efc7f71
+  # Émetteur OIDC attendu dans le certificat Fulcio (signature keyless)
+  OIDC_ISSUER: https://token.actions.githubusercontent.com
 
 jobs:
   # ---------------------------------------------------------------
@@ -168,14 +176,18 @@ jobs:
         run: rm -rf secrets
 
   # ---------------------------------------------------------------
-  # 4. Sécurité supply chain (Trivy bloquant, chaque architecture)
+  # 4. SBOM (CycloneDX + SPDX) & double scan : Trivy sur l'image,
+  #    Grype sur le SBOM filtré par la déclaration OpenVEX
   # ---------------------------------------------------------------
   security:
-    name: Scan Trivy
+    name: SBOM & double scan (Trivy + Grype/VEX)
     runs-on: ubuntu-latest
     needs: build
     permissions:
       contents: read
+    env:
+      # Inventaire des composants uniquement (sans métadonnées de chaque fichier)
+      SYFT_FILE_METADATA_SELECTION: none
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -183,19 +195,96 @@ jobs:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: api-image
-      - name: Charger les images
-        run: docker load -i api-image.tar && rm api-image.tar
-      - name: Installer Trivy (archive vérifiée par SHA256)
+          path: ${{ runner.temp }}
+      - name: Charger les images (amd64 + arm64)
+        run: docker load -i "${RUNNER_TEMP}/api-image.tar" && rm "${RUNNER_TEMP}/api-image.tar"
+      - name: Installer Trivy, Syft et Grype (archives vérifiées par SHA256, hors dépôt)
         run: |
+          bin="${RUNNER_TEMP}/bin"
+          mkdir -p "${bin}"
+          cd "${RUNNER_TEMP}"
           curl -sSfL -o trivy.tar.gz "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
           echo "${TRIVY_SHA256}  trivy.tar.gz" | sha256sum -c -
-          tar -xzf trivy.tar.gz trivy
+          tar -xzf trivy.tar.gz -C "${bin}" trivy
+          curl -sSfL -o syft.tar.gz "https://github.com/anchore/syft/releases/download/v${SYFT_VERSION}/syft_${SYFT_VERSION}_linux_amd64.tar.gz"
+          echo "${SYFT_SHA256}  syft.tar.gz" | sha256sum -c -
+          tar -xzf syft.tar.gz -C "${bin}" syft
+          curl -sSfL -o grype.tar.gz "https://github.com/anchore/grype/releases/download/v${GRYPE_VERSION}/grype_${GRYPE_VERSION}_linux_amd64.tar.gz"
+          echo "${GRYPE_SHA256}  grype.tar.gz" | sha256sum -c -
+          tar -xzf grype.tar.gz -C "${bin}" grype
+          rm -f ./*.tar.gz
+          echo "${bin}" >> "$GITHUB_PATH"
+      - name: Validité de la déclaration OpenVEX (products et justification normalisée obligatoires)
+        run: |
+          # Grype ignore sans message un statement sans « products » : on le refuse ici.
+          jq -e '
+            (."@context" | startswith("https://openvex.dev/ns/"))
+            and (.statements | length > 0)
+            and all(.statements[];
+              (.products | length > 0)
+              and (.products | all(."@id" | startswith("pkg:")))
+              and (if .status == "not_affected" then
+                     (.justification | IN("component_not_present", "vulnerable_code_not_present",
+                        "vulnerable_code_not_in_execute_path",
+                        "vulnerable_code_cannot_be_controlled_by_adversary",
+                        "inline_mitigations_already_exist"))
+                     and (.impact_statement | length > 0)
+                   elif .status == "affected" then (.action_statement | length > 0)
+                   else .status | IN("fixed", "under_investigation") end))
+          ' security.vex.json
+          jq -r '.statements[] | "\(.vulnerability.name)\t\(.status)\t\(.justification // "-")"' security.vex.json
       - name: Trivy - image amd64 (vulnérabilités + secrets)
-        run: ./trivy image --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress "${IMAGE_LOCAL}"
+        run: trivy image --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress "${IMAGE_LOCAL}"
       - name: Trivy - image arm64 (vulnérabilités + secrets)
-        run: ./trivy image --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress "${IMAGE_LOCAL}-arm64"
+        run: trivy image --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress "${IMAGE_LOCAL}-arm64"
       - name: Trivy - dépendances et secrets du dépôt
-        run: ./trivy fs --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress .
+        run: trivy fs --scanners vuln,secret --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed --no-progress .
+      - name: SBOM CycloneDX 1.6 + SPDX 2.3 par architecture (Syft, analyse statique sans exécution)
+        run: |
+          mkdir -p sbom
+          syft "docker:${IMAGE_LOCAL}" -q \
+            -o cyclonedx-json@1.6=sbom/sbom.cdx.json -o spdx-json=sbom/sbom.spdx.json
+          syft "docker:${IMAGE_LOCAL}-arm64" -q \
+            -o cyclonedx-json@1.6=sbom/sbom-arm64.cdx.json -o spdx-json=sbom/sbom-arm64.spdx.json
+          ls -l sbom
+      - name: Interrogation programmatique des SBOM (volume, PURL, licences)
+        working-directory: sbom
+        run: |
+          for f in sbom.cdx.json sbom-arm64.cdx.json; do
+            echo "== ${f}"
+            echo "Composants : $(jq '.components | length' "$f")"
+            jq -r '[.components[].purl // empty | split("/")[0]] | group_by(.) | map("  \(.[0]) : \(length)") | .[]' "$f"
+          done
+          echo "== PURL (amd64)"
+          jq -r '.components[].purl // empty' sbom.cdx.json
+          echo "== Licences consolidées (CycloneDX)"
+          jq -r '[.components[].licenses[]? | .license.id // .license.name // .expression] | unique | .[]' sbom.cdx.json
+          echo "== Composants sans licence déclarée"
+          jq -r '.components[] | select((.licenses // []) | length == 0) | "\(.type) \(.name) \(.version)"' sbom.cdx.json
+          echo "== SPDX : $(jq '.packages | length' sbom.spdx.json) paquets, $(jq '.files | length' sbom.spdx.json) fichiers"
+          {
+            echo "### SBOM de l'image testée"
+            echo
+            echo "| SBOM | Composants | apk | PyPI | Licences distinctes |"
+            echo "|---|---|---|---|---|"
+            for f in sbom.cdx.json sbom-arm64.cdx.json; do
+              echo "| \`${f}\` | $(jq '.components | length' "$f") | $(jq '[.components[].purl // "" | select(startswith("pkg:apk/"))] | length' "$f") | $(jq '[.components[].purl // "" | select(startswith("pkg:pypi/"))] | length' "$f") | $(jq '[.components[].licenses[]? | .license.id // .license.name // .expression] | unique | length' "$f") |"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Archiver les SBOM (artefacts CI, 90 jours)
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sbom
+          path: sbom/
+          retention-days: 90
+      - name: Grype sur les SBOM - porte bloquante HIGH+ corrigeable, VEX appliqué (.grype.yaml)
+        run: |
+          grype sbom:sbom/sbom.cdx.json -c .grype.yaml
+          grype sbom:sbom/sbom-arm64.cdx.json -c .grype.yaml
+      - name: Grype - inventaire complet (toutes sévérités, EPSS, entrées qualifiées par le VEX)
+        # Hors racine du dépôt : .grype.yaml (porte bloquante) n'est pas chargé ici
+        working-directory: sbom
+        run: grype sbom:sbom.cdx.json --vex ../security.vex.json --show-suppressed -o table
 
   # ---------------------------------------------------------------
   # 5. Intégration dynamique & smoke test
@@ -203,7 +292,7 @@ jobs:
   integration:
     name: Intégration Compose & smoke test
     runs-on: ubuntu-latest
-    needs: build
+    needs: security
     permissions:
       contents: read
     steps:
@@ -263,16 +352,23 @@ jobs:
           rm -rf secrets .env
 
   # ---------------------------------------------------------------
-  # 6. Publication GHCR multi-arch (uniquement sur tag SemVer, si tout est vert)
+  # 6. Publication GHCR multi-arch, signature keyless et attestations
+  #    (uniquement sur tag SemVer, si tout est vert)
   # ---------------------------------------------------------------
   release:
-    name: Publication GHCR (multi-arch)
+    name: Publication GHCR, signature & attestation
     runs-on: ubuntu-latest
     needs: [security, integration]
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: read
       packages: write
+      id-token: write # jeton OIDC pour Cosign keyless (Fulcio + Rekor), ce job uniquement
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      index: ${{ steps.digests.outputs.index }}
+      amd64: ${{ steps.digests.outputs.amd64 }}
+      arm64: ${{ steps.digests.outputs.arm64 }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -344,6 +440,186 @@ jobs:
             exit 1
           fi
           echo "OK : couches identiques"
+      - name: Installer Syft et Cosign (binaires vérifiés par SHA256, hors dépôt)
+        run: |
+          bin="${RUNNER_TEMP}/bin"
+          mkdir -p "${bin}"
+          cd "${RUNNER_TEMP}"
+          curl -sSfL -o syft.tar.gz "https://github.com/anchore/syft/releases/download/v${SYFT_VERSION}/syft_${SYFT_VERSION}_linux_amd64.tar.gz"
+          echo "${SYFT_SHA256}  syft.tar.gz" | sha256sum -c -
+          tar -xzf syft.tar.gz -C "${bin}" syft
+          curl -sSfL -o "${bin}/cosign" "https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign-linux-amd64"
+          echo "${COSIGN_SHA256}  ${bin}/cosign" | sha256sum -c -
+          chmod +x "${bin}/cosign"
+          rm -f syft.tar.gz
+          echo "${bin}" >> "$GITHUB_PATH"
+      - name: Digests immuables publiés (index + une image par architecture)
+        id: digests
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          ref="${IMAGE_GHCR}:${VERSION}"
+          raw="$(docker buildx imagetools inspect "${ref}" --raw)"
+          index="$(docker buildx imagetools inspect "${ref}" --format '{{json .Manifest}}' | jq -r .digest)"
+          amd64="$(jq -r '.manifests[] | select(.platform.os == "linux" and .platform.architecture == "amd64") | .digest' <<< "${raw}")"
+          arm64="$(jq -r '.manifests[] | select(.platform.os == "linux" and .platform.architecture == "arm64") | .digest' <<< "${raw}")"
+          for d in "${index}" "${amd64}" "${arm64}"; do
+            [[ "${d}" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "::error::Digest invalide : '${d}'"; exit 1; }
+          done
+          printf 'index=%s\namd64=%s\narm64=%s\n' "${index}" "${amd64}" "${arm64}" | tee -a "$GITHUB_OUTPUT"
+      - name: SBOM des images publiées, lus dans le registre par digest (Syft)
+        env:
+          SYFT_FILE_METADATA_SELECTION: none
+          AMD64: ${{ steps.digests.outputs.amd64 }}
+          ARM64: ${{ steps.digests.outputs.arm64 }}
+        run: |
+          mkdir -p sbom-release
+          syft "registry:${IMAGE_GHCR}@${AMD64}" -q \
+            -o cyclonedx-json@1.6=sbom-release/sbom.cdx.json -o spdx-json=sbom-release/sbom.spdx.json
+          syft "registry:${IMAGE_GHCR}@${ARM64}" -q \
+            -o cyclonedx-json@1.6=sbom-release/sbom-arm64.cdx.json -o spdx-json=sbom-release/sbom-arm64.spdx.json
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sbom
+          path: sbom-tested
+      - name: Le SBOM publié correspond au SBOM testé et audité (mêmes PURL)
+        run: |
+          for f in sbom.cdx.json sbom-arm64.cdx.json; do
+            if ! diff <(jq -r '.components[].purl // empty' "sbom-tested/${f}" | sort) \
+                      <(jq -r '.components[].purl // empty' "sbom-release/${f}" | sort); then
+              echo "::error::${f} : la composition publiée diffère de celle qui a été scannée"
+              exit 1
+            fi
+            echo "OK ${f} : $(jq '[.components[].purl // empty] | length' "sbom-release/${f}") PURL identiques"
+          done
+      - name: Signature keyless (OIDC) de l'index et de chaque image, par digest
+        env:
+          INDEX: ${{ steps.digests.outputs.index }}
+        run: cosign sign --yes --recursive "${IMAGE_GHCR}@${INDEX}"
+      - name: Attestations signées du SBOM (CycloneDX + SPDX) et du VEX, rattachées aux digests
+        env:
+          INDEX: ${{ steps.digests.outputs.index }}
+          AMD64: ${{ steps.digests.outputs.amd64 }}
+          ARM64: ${{ steps.digests.outputs.arm64 }}
+        run: |
+          attest() { cosign attest --yes --type "$1" --predicate "$2" "${IMAGE_GHCR}@$3"; }
+          # Chaque image porte son propre SBOM ; l'index porte le SBOM de référence (amd64) et le VEX
+          attest cyclonedx sbom-release/sbom.cdx.json        "${AMD64}"
+          attest spdxjson  sbom-release/sbom.spdx.json       "${AMD64}"
+          attest cyclonedx sbom-release/sbom-arm64.cdx.json  "${ARM64}"
+          attest spdxjson  sbom-release/sbom-arm64.spdx.json "${ARM64}"
+          attest cyclonedx sbom-release/sbom.cdx.json        "${INDEX}"
+          attest spdxjson  sbom-release/sbom.spdx.json       "${INDEX}"
+          attest openvex   security.vex.json                 "${INDEX}"
+      - name: Archiver les SBOM publiés et attestés (artefacts CI, 90 jours)
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sbom-release-${{ steps.meta.outputs.version }}
+          path: sbom-release/
+          retention-days: 90
       - name: Purge du jeton éphémère
         if: always()
         run: rm -rf secrets
+
+  # ---------------------------------------------------------------
+  # 7. Gate d'admission finale : job indépendant, sans aucun droit,
+  #    qui revérifie tout depuis le registre public
+  # ---------------------------------------------------------------
+  verify:
+    name: Gate d'admission (signature + attestations)
+    runs-on: ubuntu-latest
+    needs: release
+    permissions: {}
+    env:
+      VERSION: ${{ needs.release.outputs.version }}
+      INDEX: ${{ needs.release.outputs.index }}
+      AMD64: ${{ needs.release.outputs.amd64 }}
+      ARM64: ${{ needs.release.outputs.arm64 }}
+    steps:
+      - name: Installer Cosign (binaire vérifié par SHA256)
+        run: |
+          bin="${RUNNER_TEMP}/bin"
+          mkdir -p "${bin}"
+          curl -sSfL -o "${bin}/cosign" "https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/cosign-linux-amd64"
+          echo "${COSIGN_SHA256}  ${bin}/cosign" | sha256sum -c -
+          chmod +x "${bin}/cosign"
+          echo "${bin}" >> "$GITHUB_PATH"
+      - name: Image et identité de signature attendues
+        run: |
+          {
+            echo "IMAGE_GHCR=ghcr.io/${GITHUB_REPOSITORY,,}"
+            # Identité Fulcio = workflow de CE dépôt, exécuté pour CE tag
+            echo "CERT_IDENTITY=https://github.com/${GITHUB_WORKFLOW_REF}"
+          } >> "$GITHUB_ENV"
+      - name: Le tag SemVer désigne toujours le digest publié (lecture anonyme du registre)
+        run: |
+          current="$(docker buildx imagetools inspect "${IMAGE_GHCR}:${VERSION}" --format '{{json .Manifest}}' | jq -r .digest)"
+          echo "${IMAGE_GHCR}:${VERSION} -> ${current}"
+          if [ "${current}" != "${INDEX}" ]; then
+            echo "::error::Le tag ${VERSION} ne désigne plus le digest signé ${INDEX}"
+            exit 1
+          fi
+      - name: Signature de l'index et de chaque image (Fulcio + Rekor)
+        run: |
+          for d in "${INDEX}" "${AMD64}" "${ARM64}"; do
+            cosign verify \
+              --certificate-identity "${CERT_IDENTITY}" \
+              --certificate-oidc-issuer "${OIDC_ISSUER}" \
+              --certificate-github-workflow-repository "${GITHUB_REPOSITORY}" \
+              --certificate-github-workflow-sha "${GITHUB_SHA}" \
+              --certificate-github-workflow-trigger push \
+              "${IMAGE_GHCR}@${d}" > verify.json
+            # Cosign v3 compte aussi les attestations comme des « signatures » :
+            # on exige la signature de l'image elle-même, sur ce digest précis.
+            jq -e --arg d "${d}" 'any(.[];
+                (.critical.type == "https://sigstore.dev/cosign/sign/v1"
+                 or .critical.type == "cosign container image signature")
+                and .critical.image["docker-manifest-digest"] == $d)' verify.json > /dev/null \
+              || { echo "::error::Aucune signature d'image valide pour ${d}"; exit 1; }
+            echo "OK signature : ${IMAGE_GHCR}@${d}"
+          done
+      - name: Attestations SBOM et VEX authentiques, extraction du SBOM certifié
+        run: |
+          mkdir -p sbom-certifie
+          # $1 type cosign, $2 digest, $3 predicateType attendu, $4 fichier de sortie
+          check() {
+            cosign verify-attestation --type "$1" \
+              --certificate-identity "${CERT_IDENTITY}" \
+              --certificate-oidc-issuer "${OIDC_ISSUER}" \
+              --certificate-github-workflow-sha "${GITHUB_SHA}" \
+              "${IMAGE_GHCR}@$2" > att.jsonl
+            # Chaque ligne est une enveloppe DSSE : on décode la déclaration in-toto
+            jq -r '.payload' att.jsonl | head -n 1 | base64 -d > statement.json
+            jq -e --arg d "${2#sha256:}" --arg t "$3" \
+              '.predicateType == $t and any(.subject[]; .digest.sha256 == $d)' statement.json > /dev/null \
+              || { echo "::error::Attestation $1 incohérente pour $2"; exit 1; }
+            jq '.predicate' statement.json > "sbom-certifie/$4"
+            echo "OK attestation $1 : $2 -> $4"
+          }
+          check cyclonedx "${AMD64}" https://cyclonedx.org/bom   sbom-amd64.cdx.json
+          check cyclonedx "${ARM64}" https://cyclonedx.org/bom   sbom-arm64.cdx.json
+          check cyclonedx "${INDEX}" https://cyclonedx.org/bom   sbom.cdx.json
+          check spdxjson  "${AMD64}" https://spdx.dev/Document   sbom-amd64.spdx.json
+          check spdxjson  "${ARM64}" https://spdx.dev/Document   sbom-arm64.spdx.json
+          check spdxjson  "${INDEX}" https://spdx.dev/Document   sbom.spdx.json
+          check openvex   "${INDEX}" https://openvex.dev/ns      security.vex.json
+          for f in sbom-amd64.cdx.json sbom-arm64.cdx.json; do
+            n="$(jq '.components | length' "sbom-certifie/${f}")"
+            [ "${n}" -gt 0 ] || { echo "::error::SBOM certifié vide : ${f}"; exit 1; }
+            echo "${f} : ${n} composants certifiés"
+          done
+      - name: Contre-épreuve - une identité de signataire non autorisée est rejetée
+        run: |
+          forged="https://github.com/${GITHUB_REPOSITORY}/.github/workflows/forged.yaml@refs/heads/main"
+          if cosign verify --certificate-identity "${forged}" --certificate-oidc-issuer "${OIDC_ISSUER}" \
+               "${IMAGE_GHCR}@${INDEX}" > /dev/null 2>&1; then
+            echo "::error::Signature acceptée pour une identité non autorisée"
+            exit 1
+          fi
+          echo "OK : identité ${forged} rejetée"
+      - name: Archiver le SBOM certifié extrait du registre
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sbom-certifie-${{ env.VERSION }}
+          path: sbom-certifie/
+          retention-days: 90
