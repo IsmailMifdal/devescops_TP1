@@ -1,0 +1,5220 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "author": "Jason Kirtland",
+      "bom-ref": "pkg:pypi/blinker@1.9.0?package-id=aa2497864fc37b40",
+      "cpe": "cpe:2.3:a:jason_kirtland_project:python-blinker:1.9.0:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "blinker",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-installed-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "python-package"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jason_kirtland_project:python_blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jason_kirtlandproject:python-blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jason_kirtlandproject:python_blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jason_kirtland_project:blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jason_kirtland:python-blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jason_kirtland:python_blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jason_kirtlandproject:blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-blinker:python-blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-blinker:python_blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_blinker:python-blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_blinker:python_blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:blinker:python-blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:blinker:python_blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jason_kirtland:blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-blinker:blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_blinker:blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:blinker:blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:blinker:1.9.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/app/venv/lib/python3.15/site-packages/blinker-1.9.0.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "/app/venv/lib/python3.15/site-packages/blinker-1.9.0.dist-info/RECORD"
+        }
+      ],
+      "purl": "pkg:pypi/blinker@1.9.0",
+      "type": "library",
+      "version": "1.9.0"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r3?arch=x86_64&distro=wolfi-20230201&package-id=d6c5d134859b134f&upstream=ca-certificates",
+      "cpe": "cpe:2.3:a:ca-certificates-bundle:ca-certificates-bundle:20260909-r3:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "expression": "MPL-2.0 AND MIT"
+        }
+      ],
+      "name": "ca-certificates-bundle",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca-certificates-bundle:ca_certificates_bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca_certificates_bundle:ca-certificates-bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca_certificates_bundle:ca_certificates_bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca-certificates:ca-certificates-bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca-certificates:ca_certificates_bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca_certificates:ca-certificates-bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca_certificates:ca_certificates_bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca:ca-certificates-bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ca:ca_certificates_bundle:20260909-r3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "34903eac7b8592ab9906e3aba6b3aa1ad96023df"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "229624"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "ca-certificates"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q18MLPVxhaLLo4YMbPIN2d/wZuNN4="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "merged-usrsbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "wolfi-baselayout"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "119136"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r3?arch=x86_64&distro=wolfi-20230201&upstream=ca-certificates",
+      "type": "library",
+      "version": "20260909-r3"
+    },
+    {
+      "bom-ref": "pkg:pypi/click@8.5.0?package-id=a8f127821ca1bf80",
+      "cpe": "cpe:2.3:a:python-click:python-click:8.5.0:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "click",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-installed-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "python-package"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-click:python_click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_click:python-click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_click:python_click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:click:python-click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:click:python_click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-click:click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_click:click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:click:click:8.5.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/app/venv/lib/python3.15/site-packages/click-8.5.0.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "/app/venv/lib/python3.15/site-packages/click-8.5.0.dist-info/RECORD"
+        }
+      ],
+      "purl": "pkg:pypi/click@8.5.0",
+      "type": "library",
+      "version": "8.5.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/flask@3.1.3?package-id=9bf1c4014ea2e453",
+      "cpe": "cpe:2.3:a:python-flask:python-flask:3.1.3:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "flask",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-installed-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "python-package"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-flask:python_flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_flask:python-flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_flask:python_flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:flask:python-flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:flask:python_flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-flask:flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_flask:flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:flask:flask:3.1.3:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/app/venv/lib/python3.15/site-packages/flask-3.1.3.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "/app/venv/lib/python3.15/site-packages/flask-3.1.3.dist-info/RECORD"
+        }
+      ],
+      "purl": "pkg:pypi/flask@3.1.3",
+      "type": "library",
+      "version": "3.1.3"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/gdbm@1.26-r8?arch=x86_64&distro=wolfi-20230201&package-id=f382bf6f16e09e8b",
+      "cpe": "cpe:2.3:a:gdbm:gdbm:1.26-r8:*:*:*:*:*:*:*",
+      "description": "GNU dbm is a set of database routines which use extensible hashing",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        }
+      ],
+      "name": "gdbm",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "b4fb5930deca7d4384ee34fd326437ceda57193f"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "908602"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "gdbm"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "cmd:gdbm_dump=1.26-r8"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "cmd:gdbm_load=1.26-r8"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "cmd:gdbmtool=1.26-r8"
+        },
+        {
+          "name": "syft:metadata:provides:3",
+          "value": "so-ver:libgdbm.so.6=1.26-r8"
+        },
+        {
+          "name": "syft:metadata:provides:4",
+          "value": "so-ver:libgdbm_compat.so.4=1.26-r8"
+        },
+        {
+          "name": "syft:metadata:provides:5",
+          "value": "so:libgdbm.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:6",
+          "value": "so:libgdbm_compat.so.4=4"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q10dK27jlg+nilHA+JMRlCnSxw3Bg="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:ld-linux-x86-64.so.2"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "284149"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/gdbm@1.26-r8?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "1.26-r8"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+      "cpe": "cpe:2.3:a:glibc-2.44:glibc-2.44:2.44-r9:*:*:*:*:*:*:*",
+      "description": "the GNU C library",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "name": "glibc-2.44",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44:glibc_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44:glibc-2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44:glibc_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44:glibc:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc:glibc-2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc:glibc_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44:glibc:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:gnu:glibc-2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:gnu:glibc_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc:glibc:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:gnu:glibc:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "29df9b08616c849ddc2af8dadea153f51259ac3b"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "6596664"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "glibc-2.44"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "cmd:ldconfig=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "glibc=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:10",
+          "value": "so-ver:libnsl.so.1=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:11",
+          "value": "so-ver:libnss_compat.so.2=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:12",
+          "value": "so-ver:libnss_dns.so.2=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:13",
+          "value": "so-ver:libnss_files.so.2=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:14",
+          "value": "so-ver:libpthread.so.0=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:15",
+          "value": "so-ver:libresolv.so.2=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:16",
+          "value": "so-ver:librt.so.1=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:17",
+          "value": "so-ver:libthread_db.so.1=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:18",
+          "value": "so-ver:libutil.so.1=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:19",
+          "value": "so:libBrokenLocale.so.1=1"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "so-ver:libBrokenLocale.so.1=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:20",
+          "value": "so:libanl.so.1=1"
+        },
+        {
+          "name": "syft:metadata:provides:21",
+          "value": "so:libc.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:22",
+          "value": "so:libc_malloc_debug.so.0=0"
+        },
+        {
+          "name": "syft:metadata:provides:23",
+          "value": "so:libdl.so.2=2"
+        },
+        {
+          "name": "syft:metadata:provides:24",
+          "value": "so:libm.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:25",
+          "value": "so:libmemusage.so=0"
+        },
+        {
+          "name": "syft:metadata:provides:26",
+          "value": "so:libmvec.so.1=1"
+        },
+        {
+          "name": "syft:metadata:provides:27",
+          "value": "so:libnsl.so.1=1"
+        },
+        {
+          "name": "syft:metadata:provides:28",
+          "value": "so:libnss_compat.so.2=2"
+        },
+        {
+          "name": "syft:metadata:provides:29",
+          "value": "so:libnss_dns.so.2=2"
+        },
+        {
+          "name": "syft:metadata:provides:3",
+          "value": "so-ver:libanl.so.1=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:30",
+          "value": "so:libnss_files.so.2=2"
+        },
+        {
+          "name": "syft:metadata:provides:31",
+          "value": "so:libpthread.so.0=0"
+        },
+        {
+          "name": "syft:metadata:provides:32",
+          "value": "so:libresolv.so.2=2"
+        },
+        {
+          "name": "syft:metadata:provides:33",
+          "value": "so:librt.so.1=1"
+        },
+        {
+          "name": "syft:metadata:provides:34",
+          "value": "so:libthread_db.so.1=1"
+        },
+        {
+          "name": "syft:metadata:provides:35",
+          "value": "so:libutil.so.1=1"
+        },
+        {
+          "name": "syft:metadata:provides:4",
+          "value": "so-ver:libc.so.6=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:5",
+          "value": "so-ver:libc_malloc_debug.so.0=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:6",
+          "value": "so-ver:libdl.so.2=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:7",
+          "value": "so-ver:libm.so.6=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:8",
+          "value": "so-ver:libmemusage.so=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:9",
+          "value": "so-ver:libmvec.so.1=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1e0zVOAZDLvu3gMZUtDdU1qxdFUY="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "!musl"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "glibc-2.44-locale-posix"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "ld-linux-2.44=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:3",
+          "value": "libgcc"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:4",
+          "value": "merged-lib"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:5",
+          "value": "merged-sbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:6",
+          "value": "merged-usrsbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:7",
+          "value": "so:ld-linux-x86-64.so.2"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:8",
+          "value": "wolfi-baselayout"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "3163162"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "2.44-r9"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=d9f7eeb90fe81e12&upstream=glibc-2.44",
+      "cpe": "cpe:2.3:a:glibc-2.44-locale-posix:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*",
+      "description": "POSIX locale data for glibc",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "name": "glibc-2.44-locale-posix",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44-locale-posix:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44_locale_posix:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44_locale_posix:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44-locale-posix:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44-locale-posix:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-locale-posix:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-locale-posix:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44_locale_posix:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44_locale_posix:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_locale_posix:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_locale_posix:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44-locale:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44-locale:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44_locale:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44_locale:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-locale-posix:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-locale-posix:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_locale_posix:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_locale_posix:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44-locale:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44-locale:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-locale:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-locale:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44_locale:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44_locale:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_locale:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_locale:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-locale:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-locale:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_locale:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_locale:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc-2.44:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc:glibc-2.44-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc:glibc_2.44_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc_2.44:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc:glibc-locale-posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:glibc:glibc_locale_posix:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "29df9b08616c849ddc2af8dadea153f51259ac3b"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "421838"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "glibc-2.44"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "glibc-locale-posix=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q17w1Tc6WPa2u/SdKggOvcOz1icm4="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "merged-lib"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "merged-sbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "merged-usrsbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:3",
+          "value": "wolfi-baselayout"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "93628"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&distro=wolfi-20230201&upstream=glibc-2.44",
+      "type": "library",
+      "version": "2.44-r9"
+    },
+    {
+      "bom-ref": "pkg:pypi/itsdangerous@2.2.0?package-id=9fa994a569cb6118",
+      "cpe": "cpe:2.3:a:python-itsdangerous:python-itsdangerous:2.2.0:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "itsdangerous",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-installed-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "python-package"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-itsdangerous:python_itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_itsdangerous:python-itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_itsdangerous:python_itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:itsdangerous:python-itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:itsdangerous:python_itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-itsdangerous:itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_itsdangerous:itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:itsdangerous:itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:itsdangerous:2.2.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/app/venv/lib/python3.15/site-packages/itsdangerous-2.2.0.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "/app/venv/lib/python3.15/site-packages/itsdangerous-2.2.0.dist-info/RECORD"
+        }
+      ],
+      "purl": "pkg:pypi/itsdangerous@2.2.0",
+      "type": "library",
+      "version": "2.2.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/jinja2@3.1.6?package-id=32bb977a3ef9f43f",
+      "cpe": "cpe:2.3:a:python-jinja2:python-jinja2:3.1.6:*:*:*:*:*:*:*",
+      "name": "jinja2",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-installed-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "python-package"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-jinja2:python_jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_jinja2:python-jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_jinja2:python_jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jinja2:python-jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jinja2:python_jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-jinja2:jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_jinja2:jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:jinja2:jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:jinja2:3.1.6:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/app/venv/lib/python3.15/site-packages/jinja2-3.1.6.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "/app/venv/lib/python3.15/site-packages/jinja2-3.1.6.dist-info/RECORD"
+        }
+      ],
+      "purl": "pkg:pypi/jinja2@3.1.6",
+      "type": "library",
+      "version": "3.1.6"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44",
+      "cpe": "cpe:2.3:a:ld-linux-2.44:ld-linux-2.44:2.44-r9:*:*:*:*:*:*:*",
+      "description": "the GLIBC ELF interpreter",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "name": "ld-linux-2.44",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld-linux-2.44:ld_linux_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld_linux_2.44:ld-linux-2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld_linux_2.44:ld_linux_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld-linux-2.44:ld-linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld-linux-2.44:ld_linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld-linux:ld-linux-2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld-linux:ld_linux_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld_linux:ld-linux-2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld_linux:ld_linux_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld_linux_2.44:ld-linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld_linux_2.44:ld_linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld-linux:ld-linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld-linux:ld_linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld_linux:ld-linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld_linux:ld_linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld:ld-linux-2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld:ld_linux_2.44:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld:ld-linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ld:ld_linux:2.44-r9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "29df9b08616c849ddc2af8dadea153f51259ac3b"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "315104"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "glibc-2.44"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "ld-linux=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so-ver:ld-linux-x86-64.so.2=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "so:ld-linux-x86-64.so.2=2"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q15+wLdaXDb9Nj1HxgRiXHO8eDid8="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "glibc-2.44=2.44-r9"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "merged-lib"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "merged-sbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:3",
+          "value": "merged-usrsbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:4",
+          "value": "wolfi-baselayout"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "157473"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&upstream=glibc-2.44",
+      "type": "library",
+      "version": "2.44-r9"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libbrotlicommon1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=b96d263e2c851021&upstream=brotli",
+      "cpe": "cpe:2.3:a:libbrotlicommon1:libbrotlicommon1:1.2.1-r1:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "libbrotlicommon1",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlicommon1:libbrotlicommon:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlicommon:libbrotlicommon1:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlicommon:libbrotlicommon:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "07b5d327025c0e744af28f3b36f009723adf93aa"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "177261"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "brotli"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libbrotlicommon.so.1=1.2.1-r1"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libbrotlicommon.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1BnOASAJctNICIV3RYBxRlqcTIhs="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "80111"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libbrotlicommon1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&upstream=brotli",
+      "type": "library",
+      "version": "1.2.1-r1"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=4d06932af090a761&upstream=brotli",
+      "cpe": "cpe:2.3:a:libbrotlidec1:libbrotlidec1:1.2.1-r1:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "libbrotlidec1",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlidec1:libbrotlidec:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlidec:libbrotlidec1:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlidec:libbrotlidec:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "07b5d327025c0e744af28f3b36f009723adf93aa"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "97682"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "brotli"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libbrotlidec.so.1=1.2.1-r1"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libbrotlidec.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q18McycIizTY7w2et1oDNJ2OAnBtQ="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libbrotlicommon.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "43400"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&upstream=brotli",
+      "type": "library",
+      "version": "1.2.1-r1"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=eac00c1161e5879c&upstream=brotli",
+      "cpe": "cpe:2.3:a:libbrotlienc1:libbrotlienc1:1.2.1-r1:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "libbrotlienc1",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlienc1:libbrotlienc:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlienc:libbrotlienc1:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbrotlienc:libbrotlienc:1.2.1-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "07b5d327025c0e744af28f3b36f009723adf93aa"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "936714"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "brotli"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libbrotlienc.so.1=1.2.1-r1"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libbrotlienc.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1mmfdrEXpK/DsS57Iu4I61mELlUE="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libbrotlicommon.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "so:libm.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "442723"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&upstream=brotli",
+      "type": "library",
+      "version": "1.2.1-r1"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libbz2-1@1.0.8-r27?arch=x86_64&distro=wolfi-20230201&package-id=f9b19b125493c24e&upstream=bzip2",
+      "cpe": "cpe:2.3:a:libbz2-1:libbz2-1:1.0.8-r27:*:*:*:*:*:*:*",
+      "description": "bzip2 shared library",
+      "licenses": [
+        {
+          "expression": "MPL-2.0 AND MIT"
+        }
+      ],
+      "name": "libbz2-1",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbz2-1:libbz2_1:1.0.8-r27:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbz2_1:libbz2-1:1.0.8-r27:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbz2_1:libbz2_1:1.0.8-r27:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbz2-1:libbz2:1.0.8-r27:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbz2:libbz2-1:1.0.8-r27:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbz2:libbz2_1:1.0.8-r27:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbz2_1:libbz2:1.0.8-r27:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libbz2:libbz2:1.0.8-r27:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "39553b4251fcd62d94164301d05bf19dcf116701"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "122373"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "bzip2"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libbz2.so.1=1.0.8-r27"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libbz2.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1o3KuDmOmz1Y4E7TLE/CA3P8qmA0="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "53857"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libbz2-1@1.0.8-r27?arch=x86_64&distro=wolfi-20230201&upstream=bzip2",
+      "type": "library",
+      "version": "1.0.8-r27"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&distro=wolfi-20230201&package-id=b9a58302210637c9&upstream=expat",
+      "cpe": "cpe:2.3:a:libexpat1:libexpat1:2.9.0-r0:*:*:*:*:*:*:*",
+      "description": "libexpat shared library",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "libexpat1",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libexpat1:libexpat:2.9.0-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libexpat:libexpat1:2.9.0-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libexpat:libexpat:2.9.0-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "2186749969af7bfc57ab4ca11f1365512f4c8694"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "279139"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "expat"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libexpat.so.1=2.9.0-r0"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libexpat.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1BC65V0Hv+gnJNyw/bhPXBGDFang="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "113449"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&distro=wolfi-20230201&upstream=expat",
+      "type": "library",
+      "version": "2.9.0-r0"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libffi@3.8.0-r2?arch=x86_64&distro=wolfi-20230201&package-id=3cb14701f84b8f21",
+      "cpe": "cpe:2.3:a:libffi:libffi:3.8.0-r2:*:*:*:*:*:*:*",
+      "description": "portable foreign function interface library",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "libffi",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "aaa2344b75ef8b19889f087c91e10b11f191e15c"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "114535"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "libffi"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libffi.so.8=3.8.0-r2"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libffi.so.8=8"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1Xv/AsO+lsjORCxdKxyfkMMLLkO0="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "47462"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libffi@3.8.0-r2?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "3.8.0-r2"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&package-id=f09addb92dd41181&upstream=gcc",
+      "cpe": "cpe:2.3:a:libgcc:libgcc:16.2.0-r1:*:*:*:*:*:*:*",
+      "description": "GCC runtime library",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later WITH GCC-exception-3.1"
+        }
+      ],
+      "name": "libgcc",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "794cf72f88e1b408eca5da0dbf5c5ed25543606d"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "236504"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "gcc"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "libgcc-16=16.2.0-r1"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so-ver:libgcc_s.so.1=16.2.0-r1"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "so:libgcc_s.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1krF+IIJj8jk+4D2vdu0yg968QJg="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:ld-linux-x86-64.so.2"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "106134"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&upstream=gcc",
+      "type": "library",
+      "version": "16.2.0-r1"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&package-id=2555495d58dfebc9&upstream=gcc",
+      "cpe": "cpe:2.3:a:libstdc\\+\\+:libstdc\\+\\+:16.2.0-r1:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later WITH GCC-exception-3.1"
+        }
+      ],
+      "name": "libstdc++",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "794cf72f88e1b408eca5da0dbf5c5ed25543606d"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "3580046"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "gcc"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "libstdc++-16=16.2.0-r1"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so-ver:libstdc++.so.6=16.2.0-r1"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "so:libstdc++.so.6=6"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1Gzz2sKOTKWmEe1Oih1l+g6LABMs="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:ld-linux-x86-64.so.2"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "so:libgcc_s.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:3",
+          "value": "so:libm.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "1260650"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&upstream=gcc",
+      "type": "library",
+      "version": "16.2.0-r1"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libuuid@2.42.4-r1?arch=x86_64&distro=wolfi-20230201&package-id=dda1bee59894c799&upstream=util-linux",
+      "cpe": "cpe:2.3:a:libuuid:libuuid:2.42.4-r1:*:*:*:*:*:*:*",
+      "description": "DCE compatible Universally Unique Identifier library",
+      "licenses": [
+        {
+          "expression": "GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only AND GPL-1.0-only AND LGPL-2.1-or-later AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND MIT AND CC-PDDC"
+        }
+      ],
+      "name": "libuuid",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "2348fa3b75f562f9061eec1305382afb1c97cbc5"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "79210"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "util-linux"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libuuid.so.1=2.42.4-r1"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libuuid.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1Iw0G6iqM4Kw9TSzZtsXNj8sabmI="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "merged-bin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "merged-sbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "merged-usrsbin"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:3",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:4",
+          "value": "wolfi-baselayout"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "34164"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libuuid@2.42.4-r1?arch=x86_64&distro=wolfi-20230201&upstream=util-linux",
+      "type": "library",
+      "version": "2.42.4-r1"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/libzstd1@1.5.7-r11?arch=x86_64&distro=wolfi-20230201&package-id=f7ce1cd5cf45addd&upstream=zstd",
+      "cpe": "cpe:2.3:a:libzstd1:libzstd1:1.5.7-r11:*:*:*:*:*:*:*",
+      "description": "libzstd runtime libraries",
+      "licenses": [
+        {
+          "expression": "BSD-2-Clause AND GPL-2.0-only"
+        }
+      ],
+      "name": "libzstd1",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libzstd1:libzstd:1.5.7-r11:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libzstd:libzstd1:1.5.7-r11:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:libzstd:libzstd:1.5.7-r11:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "07b5d327025c0e744af28f3b36f009723adf93aa"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "1498090"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "zstd"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libzstd.so.1=1.5.7-r11"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libzstd.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1vGI491/mFVev73MqMZ1nP1yPZec="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "641491"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/libzstd1@1.5.7-r11?arch=x86_64&distro=wolfi-20230201&upstream=zstd",
+      "type": "library",
+      "version": "1.5.7-r11"
+    },
+    {
+      "bom-ref": "pkg:pypi/markupsafe@3.0.4?package-id=36d40fe496c4ecee",
+      "cpe": "cpe:2.3:a:python-markupsafe:python-markupsafe:3.0.4:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "markupsafe",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-installed-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "python-package"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-markupsafe:python_markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_markupsafe:python-markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_markupsafe:python_markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:markupsafe:python-markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:markupsafe:python_markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-markupsafe:markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_markupsafe:markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:markupsafe:markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:markupsafe:3.0.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/app/venv/lib/python3.15/site-packages/markupsafe-3.0.4.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "/app/venv/lib/python3.15/site-packages/markupsafe-3.0.4.dist-info/RECORD"
+        },
+        {
+          "name": "syft:location:2:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:2:path",
+          "value": "/app/venv/lib/python3.15/site-packages/markupsafe-3.0.4.dist-info/top_level.txt"
+        }
+      ],
+      "purl": "pkg:pypi/markupsafe@3.0.4",
+      "type": "library",
+      "version": "3.0.4"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/mpdecimal@4.0.1-r5?arch=x86_64&distro=wolfi-20230201&package-id=e5272753ad30063b",
+      "cpe": "cpe:2.3:a:mpdecimal:mpdecimal:4.0.1-r5:*:*:*:*:*:*:*",
+      "description": "complete implementation of the general decimal arithmetic specification",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "name": "mpdecimal",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "ccba2d0c175224bf420920eba9b3d14a615909d4"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "351034"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "mpdecimal"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libmpdec++.so.4=4.0.1-r5"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so-ver:libmpdec.so.4=4.0.1-r5"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "so:libmpdec++.so.4=4"
+        },
+        {
+          "name": "syft:metadata:provides:3",
+          "value": "so:libmpdec.so.4=4"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1davBgYOCxQGwJHnpnDHMWrvgrok="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:ld-linux-x86-64.so.2"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "so:libgcc_s.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:3",
+          "value": "so:libm.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:4",
+          "value": "so:libstdc++.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "135586"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/mpdecimal@4.0.1-r5?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "4.0.1-r5"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/ncurses@6.6.20261024-r0?arch=x86_64&distro=wolfi-20230201&package-id=3c096d24d219fc73",
+      "cpe": "cpe:2.3:a:ncurses:ncurses:6.6.20261024-r0:*:*:*:*:*:*:*",
+      "description": "console display library",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "ncurses",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "539f10bd65b71a6483868ca6df692c5352d879a3"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "1522440"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "ncurses"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "cmd:clear=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "cmd:infocmp=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:10",
+          "value": "so-ver:libmenuw.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:11",
+          "value": "so-ver:libncurses.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:12",
+          "value": "so-ver:libncursesw.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:13",
+          "value": "so-ver:libpanel.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:14",
+          "value": "so-ver:libpanelw.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:15",
+          "value": "so-ver:libtic.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:16",
+          "value": "so-ver:libtinfo.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:17",
+          "value": "so:libform.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:18",
+          "value": "so:libformw.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:19",
+          "value": "so:libmenu.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "cmd:tabs=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:20",
+          "value": "so:libmenuw.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:21",
+          "value": "so:libncurses.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:22",
+          "value": "so:libncursesw.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:23",
+          "value": "so:libpanel.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:24",
+          "value": "so:libpanelw.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:25",
+          "value": "so:libtic.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:26",
+          "value": "so:libtinfo.so.6=6"
+        },
+        {
+          "name": "syft:metadata:provides:3",
+          "value": "cmd:tic=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:4",
+          "value": "cmd:toe=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:5",
+          "value": "cmd:tput=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:6",
+          "value": "cmd:tset=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:7",
+          "value": "so-ver:libform.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:8",
+          "value": "so-ver:libformw.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:provides:9",
+          "value": "so-ver:libmenu.so.6=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1ERZqcCUy9qQ4fVKD0S0I4iEMnX4="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "ncurses-terminfo-base=6.6.20261024-r0"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:ld-linux-x86-64.so.2"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "626233"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/ncurses@6.6.20261024-r0?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "6.6.20261024-r0"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/ncurses-terminfo-base@6.6.20261024-r0?arch=x86_64&distro=wolfi-20230201&package-id=03a497bb26059033&upstream=ncurses",
+      "cpe": "cpe:2.3:a:ncurses-terminfo-base:ncurses-terminfo-base:6.6.20261024-r0:*:*:*:*:*:*:*",
+      "description": "descriptions of common terminals",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "ncurses-terminfo-base",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses-terminfo-base:ncurses_terminfo_base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses_terminfo_base:ncurses-terminfo-base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses_terminfo_base:ncurses_terminfo_base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses-terminfo:ncurses-terminfo-base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses-terminfo:ncurses_terminfo_base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses_terminfo:ncurses-terminfo-base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses_terminfo:ncurses_terminfo_base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses:ncurses-terminfo-base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:ncurses:ncurses_terminfo_base:6.6.20261024-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "539f10bd65b71a6483868ca6df692c5352d879a3"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "649508"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "ncurses"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1y0QyqviqgSAOprijA2WB+7MqA1k="
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "119387"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/ncurses-terminfo-base@6.6.20261024-r0?arch=x86_64&distro=wolfi-20230201&upstream=ncurses",
+      "type": "library",
+      "version": "6.6.20261024-r0"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&package-id=bbf242cb7ab6efe9&upstream=openssl-4.0",
+      "cpe": "cpe:2.3:a:openssl-4.0-libcrypto:openssl-4.0-libcrypto:4.0.3-r8:*:*:*:*:*:*:*",
+      "description": "OpenSSL libcrypto library",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "name": "openssl-4.0-libcrypto",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0-libcrypto:openssl_4.0_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0_libcrypto:openssl-4.0-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0_libcrypto:openssl_4.0_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0-libcrypto:openssl-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0-libcrypto:openssl_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-libcrypto:openssl-4.0-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-libcrypto:openssl_4.0_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0_libcrypto:openssl-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0_libcrypto:openssl_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_libcrypto:openssl-4.0-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_libcrypto:openssl_4.0_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-libcrypto:openssl-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-libcrypto:openssl_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_libcrypto:openssl-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_libcrypto:openssl_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0:openssl-4.0-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0:openssl_4.0_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0:openssl-4.0-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0:openssl_4.0_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0:openssl-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0:openssl_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl-4.0-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl_4.0_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0:openssl-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0:openssl_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl-libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl_libcrypto:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "53fb2f6751f832fa61ddba06cb8a40dbba5f409f"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "6124765"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "openssl-4.0"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libcrypto.so.4=4.0.3-r8"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libcrypto.so.4=4"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1W9piTcgyubhrducJCMM7+qErDxo="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "openssl-provider-legacy-allowed"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libbrotlidec.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "so:libbrotlienc.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:3",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "2403081"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&upstream=openssl-4.0",
+      "type": "library",
+      "version": "4.0.3-r8"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&package-id=b8316453a3a2e43d&upstream=openssl-4.0",
+      "cpe": "cpe:2.3:a:openssl-4.0-libssl:openssl-4.0-libssl:4.0.3-r8:*:*:*:*:*:*:*",
+      "description": "OpenSSL libssl library",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "name": "openssl-4.0-libssl",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0-libssl:openssl_4.0_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0_libssl:openssl-4.0-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0_libssl:openssl_4.0_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0-libssl:openssl-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0-libssl:openssl_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-libssl:openssl-4.0-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-libssl:openssl_4.0_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0_libssl:openssl-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0_libssl:openssl_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_libssl:openssl-4.0-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_libssl:openssl_4.0_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0:openssl-4.0-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0:openssl_4.0_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0:openssl-4.0-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0:openssl_4.0_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-libssl:openssl-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-libssl:openssl_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_libssl:openssl-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_libssl:openssl_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0:openssl-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-4.0:openssl_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl-4.0-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl_4.0_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0:openssl-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_4.0:openssl_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl-libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl_libssl:4.0.3-r8:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "53fb2f6751f832fa61ddba06cb8a40dbba5f409f"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "1232616"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "openssl-4.0"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libssl.so.4=4.0.3-r8"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libssl.so.4=4"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1arwi4n4L3VZ3S8YJ6P4WwY/7JjY="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libcrypto.so.4"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "575950"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&upstream=openssl-4.0",
+      "type": "library",
+      "version": "4.0.3-r8"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/openssl-provider-legacy-allowed@4.0.3-r1?arch=x86_64&distro=wolfi-20230201&package-id=9c8c977615658b90",
+      "cpe": "cpe:2.3:a:openssl-provider-legacy-allowed:openssl-provider-legacy-allowed:4.0.3-r1:*:*:*:*:*:*:*",
+      "description": "Chainguard Legacy Allowed FIPS 140-3 I.G. 2.4.A Provider",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "name": "openssl-provider-legacy-allowed",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-provider-legacy-allowed:openssl_provider_legacy_allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_provider_legacy_allowed:openssl-provider-legacy-allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_provider_legacy_allowed:openssl_provider_legacy_allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-provider-legacy:openssl-provider-legacy-allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-provider-legacy:openssl_provider_legacy_allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_provider_legacy:openssl-provider-legacy-allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_provider_legacy:openssl_provider_legacy_allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-provider:openssl-provider-legacy-allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl-provider:openssl_provider_legacy_allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_provider:openssl-provider-legacy-allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl_provider:openssl_provider_legacy_allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl-provider-legacy-allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:openssl:openssl_provider_legacy_allowed:4.0.3-r1:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "5489124e360c92c42599091afb060af6fb317bb1"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "831983"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "openssl-provider-legacy-allowed"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1GPTXqRetxoF0f0PU1QPba50eqyw="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "357537"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/openssl-provider-legacy-allowed@4.0.3-r1?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "4.0.3-r1"
+    },
+    {
+      "author": "Federico Di Gregorio <fog@initd.org>",
+      "bom-ref": "pkg:pypi/psycopg2-binary@2.9.13?package-id=05af47337c78f5df",
+      "cpe": "cpe:2.3:a:federico_di_gregorio_project:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "name": "LGPL with exceptions"
+          }
+        }
+      ],
+      "name": "psycopg2-binary",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-installed-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "python-package"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorio_project:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorioproject:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorioproject:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-psycopg2-binary:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-psycopg2-binary:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_psycopg2_binary:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_psycopg2_binary:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorio_project:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorio_project:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorio:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorio:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorioproject:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorioproject:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2-binary:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2-binary:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2_binary:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2_binary:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-psycopg2-binary:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-psycopg2-binary:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-psycopg2:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-psycopg2:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_psycopg2:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_psycopg2:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_psycopg2_binary:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_psycopg2_binary:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorio:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:federico_di_gregorio:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fog_project:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fog_project:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fogproject:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fogproject:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2-binary:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2-binary:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2_binary:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2_binary:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-psycopg2:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-psycopg2:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_psycopg2:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_psycopg2:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fog_project:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fog_project:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fog:python-psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fog:python_psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fogproject:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fogproject:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:psycopg2:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fog:psycopg2-binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:fog:psycopg2_binary:2.9.13:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/app/venv/lib/python3.15/site-packages/psycopg2_binary-2.9.13.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "/app/venv/lib/python3.15/site-packages/psycopg2_binary-2.9.13.dist-info/RECORD"
+        },
+        {
+          "name": "syft:location:2:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:2:path",
+          "value": "/app/venv/lib/python3.15/site-packages/psycopg2_binary-2.9.13.dist-info/top_level.txt"
+        }
+      ],
+      "purl": "pkg:pypi/psycopg2-binary@2.9.13",
+      "type": "library",
+      "version": "2.9.13"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/py3-pip-wheel@26.2.2-r0?arch=x86_64&distro=wolfi-20230201&package-id=51becd1bbe571e3d&upstream=py3-pip",
+      "cpe": "cpe:2.3:a:pip-wheel-project:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*",
+      "description": "wheel of pip",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "py3-pip-wheel",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel-project:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel_project:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel_project:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheel_project:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheel_project:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheelproject:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheelproject:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheelproject:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheelproject:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel-project:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel-project:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel_project:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel_project:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheel_project:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheel_project:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3-pip-wheel:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3-pip-wheel:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3_pip_wheel:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3_pip_wheel:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheelproject:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheelproject:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheelproject:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheelproject:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheel:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheel:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3-pip-wheel:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3-pip-wheel:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3_pip_wheel:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3_pip_wheel:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3-pip:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3-pip:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3_pip:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3_pip:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip-wheel:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheel:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip_wheel:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3-pip:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3-pip:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3:py3-pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3:py3_pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3_pip:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3_pip:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:pip:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3:pip-wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:py3:pip_wheel:26.2.2-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "d3e2c3ab948bbf77462c31b21b28668ee6b2933b"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "1870672"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "py3-pip"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1MDc1dIGRthl39o3F3XxvmL1+gLo="
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "1815651"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/py3-pip-wheel@26.2.2-r0?arch=x86_64&distro=wolfi-20230201&upstream=py3-pip",
+      "type": "library",
+      "version": "26.2.2-r0"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/python-3.15@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&package-id=6f8096899ebc2fde",
+      "cpe": "cpe:2.3:a:python-software-foundation:python-3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*",
+      "description": "the Python programming language (metapackage)",
+      "licenses": [
+        {
+          "license": {
+            "id": "PSF-2.0"
+          }
+        }
+      ],
+      "name": "python-3.15",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-software-foundation:python_3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_software_foundation:python-3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_software_foundation:python_3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-software-foundation:python:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_software_foundation:python:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-software:python-3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-software:python_3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_software:python-3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_software:python_3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python-3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python_3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python-3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python_3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-software:python:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_software:python:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_3.15:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "3c64f4288dcab30d576bc9a97f2aaedb4272721e"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "25966"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "python-3.15"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "python-3=0"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "python3=0"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1V6iIvjWwHjv6PR1p01/qrkfuafs="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "python-3.15-runtime=3.15.0_git20261017-r4"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "21074"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/python-3.15@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "3.15.0_git20261017-r4"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/python-3.15-base@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&package-id=f6fedaa7b6efdb41&upstream=python-3.15",
+      "cpe": "cpe:2.3:a:python-3.15-base:python-3.15-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*",
+      "description": "python-3.15 without /usr/bin/python3",
+      "licenses": [
+        {
+          "license": {
+            "id": "PSF-2.0"
+          }
+        }
+      ],
+      "name": "python-3.15-base",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15-base:python_3.15_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15_base:python-3.15-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15_base:python_3.15_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15-base:python-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15-base:python_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python-3.15-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python_3.15_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-base:python-3.15-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-base:python_3.15_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python-3.15-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python_3.15_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15_base:python-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15_base:python_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_base:python-3.15-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_base:python_3.15_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-base:python-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-base:python_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-3.15-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_3.15_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_base:python-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_base:python_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_base:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "3c64f4288dcab30d576bc9a97f2aaedb4272721e"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "40288306"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "python-3.15"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "cmd:pydoc3.15=3.15.0_git20261017-r4"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "cmd:python3.15=3.15.0_git20261017-r4"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "so-ver:libpython3.15.so.1.0=3.15.0_git20261017-r4"
+        },
+        {
+          "name": "syft:metadata:provides:3",
+          "value": "so:libpython3.15.so.1.0=1.0"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1vFFvofGRCvi6hNIquFqSbE+pH4Q="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "py3-pip-wheel"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:ld-linux-x86-64.so.2"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:10",
+          "value": "so:libm.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:11",
+          "value": "so:libmpdec.so.4"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:12",
+          "value": "so:libncursesw.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:13",
+          "value": "so:libpanelw.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:14",
+          "value": "so:libreadline.so.8"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:15",
+          "value": "so:libsqlite3.so.0"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:16",
+          "value": "so:libssl.so.4"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:17",
+          "value": "so:libtinfo.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:18",
+          "value": "so:libuuid.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:19",
+          "value": "so:libz.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "so:libbz2.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:20",
+          "value": "so:libzstd.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:3",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:4",
+          "value": "so:libcrypto.so.4"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:5",
+          "value": "so:libexpat.so.1"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:6",
+          "value": "so:libffi.so.8"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:7",
+          "value": "so:libgdbm.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:8",
+          "value": "so:libgdbm_compat.so.4"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:9",
+          "value": "so:liblzma.so.5"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "14136031"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/python-3.15-base@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&upstream=python-3.15",
+      "type": "library",
+      "version": "3.15.0_git20261017-r4"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/python-3.15-runtime@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&package-id=168220ea38f5aa40&upstream=python-3.15",
+      "cpe": "cpe:2.3:a:python-3.15-runtime:python-3.15-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*",
+      "description": "python-3.15 with the python, python3 and pydoc3 commands",
+      "licenses": [
+        {
+          "license": {
+            "id": "PSF-2.0"
+          }
+        }
+      ],
+      "name": "python-3.15-runtime",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15-runtime:python_3.15_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15_runtime:python-3.15-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15_runtime:python_3.15_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15-runtime:python-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15-runtime:python_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-runtime:python-3.15-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-runtime:python_3.15_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15_runtime:python-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15_runtime:python_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_runtime:python-3.15-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_runtime:python_3.15_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python-3.15-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python_3.15_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python-3.15-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python_3.15_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-runtime:python-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-runtime:python_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_runtime:python-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_runtime:python_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-3.15:python_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-3.15-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_3.15_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_3.15:python_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_runtime:3.15.0_git20261017-r4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "3c64f4288dcab30d576bc9a97f2aaedb4272721e"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "42515"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "python-3.15"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1/4Lzkb5R9RVMpLfp1It6ntaYPYw="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "python-3.15-base=3.15.0_git20261017-r4"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "21367"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/python-3.15-runtime@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&upstream=python-3.15",
+      "type": "library",
+      "version": "3.15.0_git20261017-r4"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/readline@8.3-r3?arch=x86_64&distro=wolfi-20230201&package-id=09f9073629f9da52",
+      "cpe": "cpe:2.3:a:readline:readline:8.3-r3:*:*:*:*:*:*:*",
+      "description": "GNU readline library",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        }
+      ],
+      "name": "readline",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "20a5359ac0a7a6aca23efa343f0f29c8d3ea1453"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "988978"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "readline"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libhistory.so.8=8.3-r3"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so-ver:libreadline.so.8=8.3-r3"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "so:libhistory.so.8=8"
+        },
+        {
+          "name": "syft:metadata:provides:3",
+          "value": "so:libreadline.so.8=8"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1DpD7gaJW7NfhS6UXgOqJ/d9LlBc="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libtinfo.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "349087"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/readline@8.3-r3?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "8.3-r3"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/sqlite-libs@3.54.1-r0?arch=x86_64&distro=wolfi-20230201&package-id=09e8f60110a6d1ea&upstream=sqlite",
+      "cpe": "cpe:2.3:a:sqlite-libs:sqlite-libs:3.54.1-r0:*:*:*:*:*:*:*",
+      "description": "sqlite library",
+      "licenses": [
+        {
+          "license": {
+            "id": "blessing"
+          }
+        }
+      ],
+      "name": "sqlite-libs",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:sqlite-libs:sqlite_libs:3.54.1-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:sqlite_libs:sqlite-libs:3.54.1-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:sqlite_libs:sqlite_libs:3.54.1-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:sqlite:sqlite-libs:3.54.1-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:sqlite:sqlite_libs:3.54.1-r0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "b0ca8c95606371be2557980059c10b34df30fa9f"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "1852624"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "sqlite"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libsqlite3.so.0=3.54.1-r0"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libsqlite3.so.0=0"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1VRLw0RR5HoAu1uTfKALfMDoAMco="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libm.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "989586"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/sqlite-libs@3.54.1-r0?arch=x86_64&distro=wolfi-20230201&upstream=sqlite",
+      "type": "library",
+      "version": "3.54.1-r0"
+    },
+    {
+      "bom-ref": "pkg:pypi/werkzeug@3.1.9?package-id=60d346aba66a5f46",
+      "cpe": "cpe:2.3:a:python-werkzeug:python-werkzeug:3.1.9:*:*:*:*:*:*:*",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "name": "werkzeug",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-installed-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "python-package"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-werkzeug:python_werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_werkzeug:python-werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_werkzeug:python_werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-werkzeug:werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_werkzeug:werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:werkzeug:python-werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:werkzeug:python_werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:werkzeug:werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:werkzeug:3.1.9:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/app/venv/lib/python3.15/site-packages/werkzeug-3.1.9.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:layerID",
+          "value": "sha256:78961d5762cef9bf9ee3e7aae1e294ff7745a316102df4e204ae715f5a9aafc4"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "/app/venv/lib/python3.15/site-packages/werkzeug-3.1.9.dist-info/RECORD"
+        }
+      ],
+      "purl": "pkg:pypi/werkzeug@3.1.9",
+      "type": "library",
+      "version": "3.1.9"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201&package-id=e5acd063f9013ce7",
+      "cpe": "cpe:2.3:a:wolfi-baselayout:wolfi-baselayout:20230201-r30:*:*:*:*:*:*:*",
+      "description": "baselayout data for Wolfi",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "name": "wolfi-baselayout",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:wolfi-baselayout:wolfi_baselayout:20230201-r30:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:wolfi_baselayout:wolfi-baselayout:20230201-r30:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:wolfi_baselayout:wolfi_baselayout:20230201-r30:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:wolfi:wolfi-baselayout:20230201-r30:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:wolfi:wolfi_baselayout:20230201-r30:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "a4472f6292a5e48d6d611bf24c6e119b1a483e66"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "137722"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "wolfi-baselayout"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "merged-bin"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "merged-lib"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "merged-sbin"
+        },
+        {
+          "name": "syft:metadata:provides:3",
+          "value": "merged-usrsbin"
+        },
+        {
+          "name": "syft:metadata:provides:4",
+          "value": "merged-varrun"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1qyFV0NZAQAnaHoGFhRwUQlzoQC0="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "ca-certificates-bundle"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "13933"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "20230201-r30"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/xz@5.8.4-r0?arch=x86_64&distro=wolfi-20230201&package-id=516af8e28b7e55a9",
+      "cpe": "cpe:2.3:a:xz:xz:5.8.4-r0:*:*:*:*:*:*:*",
+      "description": "Library and CLI tools for XZ and LZMA compressed files",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        }
+      ],
+      "name": "xz",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "3976a1f9c66f7243a9af8522d471a9b10a99b75f"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "1332074"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "xz"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "cmd:lzmadec=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "cmd:lzmainfo=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:2",
+          "value": "cmd:xz=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:3",
+          "value": "cmd:xzdec=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:4",
+          "value": "cmd:xzdiff=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:5",
+          "value": "cmd:xzgrep=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:6",
+          "value": "cmd:xzless=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:7",
+          "value": "cmd:xzmore=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:8",
+          "value": "so-ver:liblzma.so.5=5.8.4-r0"
+        },
+        {
+          "name": "syft:metadata:provides:9",
+          "value": "so:liblzma.so.5=5"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1krKZR0I/kPCVPgULCI8yz9N3BZc="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "so:ld-linux-x86-64.so.2"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "397390"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/xz@5.8.4-r0?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "5.8.4-r0"
+    },
+    {
+      "bom-ref": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&distro=wolfi-20230201&package-id=53895519b0a8545b",
+      "cpe": "cpe:2.3:a:zlib:zlib:1.3.2.1_rc20260921-r0:*:*:*:*:*:*:*",
+      "description": "a library implementing the zlib compression algorithms",
+      "licenses": [
+        {
+          "expression": "MPL-2.0 AND MIT"
+        }
+      ],
+      "name": "zlib",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "apk-db-cataloger"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "apk"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "apk-db-entry"
+        },
+        {
+          "name": "syft:location:0:layerID",
+          "value": "sha256:e3183d5cdd6263326fb29ab6e3635d74865a3aeceba0198800bcf358a4d63c6c"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "/usr/lib/apk/db/installed"
+        },
+        {
+          "name": "syft:metadata:gitCommitOfApkPort",
+          "value": "75278be0abfe311aedfbf7c3933f6f0b819980e6"
+        },
+        {
+          "name": "syft:metadata:installedSize",
+          "value": "151376"
+        },
+        {
+          "name": "syft:metadata:originPackage",
+          "value": "zlib"
+        },
+        {
+          "name": "syft:metadata:provides:0",
+          "value": "so-ver:libz.so.1=1.3.2.1_rc20260921-r0"
+        },
+        {
+          "name": "syft:metadata:provides:1",
+          "value": "so:libz.so.1=1"
+        },
+        {
+          "name": "syft:metadata:pullChecksum",
+          "value": "Q1qghpZ2L1/BEB0JcVmsu+LM29uoI="
+        },
+        {
+          "name": "syft:metadata:pullDependencies:0",
+          "value": "merged-lib"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:1",
+          "value": "so:libc.so.6"
+        },
+        {
+          "name": "syft:metadata:pullDependencies:2",
+          "value": "wolfi-baselayout"
+        },
+        {
+          "name": "syft:metadata:size",
+          "value": "74688"
+        }
+      ],
+      "publisher": "wolfi",
+      "purl": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&distro=wolfi-20230201",
+      "type": "library",
+      "version": "1.3.2.1_rc20260921-r0"
+    },
+    {
+      "bom-ref": "os:wolfi@20230201",
+      "description": "Wolfi",
+      "externalReferences": [
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/wolfi-dev/os/issues"
+        },
+        {
+          "type": "website",
+          "url": "https://wolfi.dev"
+        }
+      ],
+      "name": "wolfi",
+      "properties": [
+        {
+          "name": "syft:distro:extendedSupport",
+          "value": "false"
+        },
+        {
+          "name": "syft:distro:id",
+          "value": "wolfi"
+        },
+        {
+          "name": "syft:distro:prettyName",
+          "value": "Wolfi"
+        },
+        {
+          "name": "syft:distro:versionID",
+          "value": "20230201"
+        }
+      ],
+      "swid": {
+        "name": "wolfi",
+        "tagId": "wolfi",
+        "version": "20230201"
+      },
+      "type": "operating-system",
+      "version": "20230201"
+    }
+  ],
+  "dependencies": [
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201&package-id=e5acd063f9013ce7"
+      ],
+      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r3?arch=x86_64&distro=wolfi-20230201&package-id=d6c5d134859b134f&upstream=ca-certificates"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44"
+      ],
+      "ref": "pkg:apk/wolfi/gdbm@1.26-r8?arch=x86_64&distro=wolfi-20230201&package-id=f382bf6f16e09e8b"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201&package-id=e5acd063f9013ce7"
+      ],
+      "ref": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=d9f7eeb90fe81e12&upstream=glibc-2.44"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=d9f7eeb90fe81e12&upstream=glibc-2.44",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44",
+        "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&package-id=f09addb92dd41181&upstream=gcc",
+        "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201&package-id=e5acd063f9013ce7"
+      ],
+      "ref": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201&package-id=e5acd063f9013ce7"
+      ],
+      "ref": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f"
+      ],
+      "ref": "pkg:apk/wolfi/libbrotlicommon1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=b96d263e2c851021&upstream=brotli"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/libbrotlicommon1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=b96d263e2c851021&upstream=brotli"
+      ],
+      "ref": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=4d06932af090a761&upstream=brotli"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/libbrotlicommon1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=b96d263e2c851021&upstream=brotli"
+      ],
+      "ref": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=eac00c1161e5879c&upstream=brotli"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f"
+      ],
+      "ref": "pkg:apk/wolfi/libbz2-1@1.0.8-r27?arch=x86_64&distro=wolfi-20230201&package-id=f9b19b125493c24e&upstream=bzip2"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f"
+      ],
+      "ref": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&distro=wolfi-20230201&package-id=b9a58302210637c9&upstream=expat"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f"
+      ],
+      "ref": "pkg:apk/wolfi/libffi@3.8.0-r2?arch=x86_64&distro=wolfi-20230201&package-id=3cb14701f84b8f21"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44"
+      ],
+      "ref": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&package-id=f09addb92dd41181&upstream=gcc"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44",
+        "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&package-id=f09addb92dd41181&upstream=gcc"
+      ],
+      "ref": "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&package-id=2555495d58dfebc9&upstream=gcc"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201&package-id=e5acd063f9013ce7"
+      ],
+      "ref": "pkg:apk/wolfi/libuuid@2.42.4-r1?arch=x86_64&distro=wolfi-20230201&package-id=dda1bee59894c799&upstream=util-linux"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f"
+      ],
+      "ref": "pkg:apk/wolfi/libzstd1@1.5.7-r11?arch=x86_64&distro=wolfi-20230201&package-id=f7ce1cd5cf45addd&upstream=zstd"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44",
+        "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&package-id=f09addb92dd41181&upstream=gcc",
+        "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=x86_64&distro=wolfi-20230201&package-id=2555495d58dfebc9&upstream=gcc"
+      ],
+      "ref": "pkg:apk/wolfi/mpdecimal@4.0.1-r5?arch=x86_64&distro=wolfi-20230201&package-id=e5272753ad30063b"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44",
+        "pkg:apk/wolfi/ncurses-terminfo-base@6.6.20261024-r0?arch=x86_64&distro=wolfi-20230201&package-id=03a497bb26059033&upstream=ncurses"
+      ],
+      "ref": "pkg:apk/wolfi/ncurses@6.6.20261024-r0?arch=x86_64&distro=wolfi-20230201&package-id=3c096d24d219fc73"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=4d06932af090a761&upstream=brotli",
+        "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&distro=wolfi-20230201&package-id=eac00c1161e5879c&upstream=brotli",
+        "pkg:apk/wolfi/openssl-provider-legacy-allowed@4.0.3-r1?arch=x86_64&distro=wolfi-20230201&package-id=9c8c977615658b90"
+      ],
+      "ref": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&package-id=bbf242cb7ab6efe9&upstream=openssl-4.0"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&package-id=bbf242cb7ab6efe9&upstream=openssl-4.0"
+      ],
+      "ref": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&package-id=b8316453a3a2e43d&upstream=openssl-4.0"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f"
+      ],
+      "ref": "pkg:apk/wolfi/openssl-provider-legacy-allowed@4.0.3-r1?arch=x86_64&distro=wolfi-20230201&package-id=9c8c977615658b90"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/gdbm@1.26-r8?arch=x86_64&distro=wolfi-20230201&package-id=f382bf6f16e09e8b",
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44",
+        "pkg:apk/wolfi/libbz2-1@1.0.8-r27?arch=x86_64&distro=wolfi-20230201&package-id=f9b19b125493c24e&upstream=bzip2",
+        "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&distro=wolfi-20230201&package-id=b9a58302210637c9&upstream=expat",
+        "pkg:apk/wolfi/libffi@3.8.0-r2?arch=x86_64&distro=wolfi-20230201&package-id=3cb14701f84b8f21",
+        "pkg:apk/wolfi/libuuid@2.42.4-r1?arch=x86_64&distro=wolfi-20230201&package-id=dda1bee59894c799&upstream=util-linux",
+        "pkg:apk/wolfi/libzstd1@1.5.7-r11?arch=x86_64&distro=wolfi-20230201&package-id=f7ce1cd5cf45addd&upstream=zstd",
+        "pkg:apk/wolfi/mpdecimal@4.0.1-r5?arch=x86_64&distro=wolfi-20230201&package-id=e5272753ad30063b",
+        "pkg:apk/wolfi/ncurses@6.6.20261024-r0?arch=x86_64&distro=wolfi-20230201&package-id=3c096d24d219fc73",
+        "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&package-id=bbf242cb7ab6efe9&upstream=openssl-4.0",
+        "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&distro=wolfi-20230201&package-id=b8316453a3a2e43d&upstream=openssl-4.0",
+        "pkg:apk/wolfi/py3-pip-wheel@26.2.2-r0?arch=x86_64&distro=wolfi-20230201&package-id=51becd1bbe571e3d&upstream=py3-pip",
+        "pkg:apk/wolfi/readline@8.3-r3?arch=x86_64&distro=wolfi-20230201&package-id=09f9073629f9da52",
+        "pkg:apk/wolfi/sqlite-libs@3.54.1-r0?arch=x86_64&distro=wolfi-20230201&package-id=09e8f60110a6d1ea&upstream=sqlite",
+        "pkg:apk/wolfi/xz@5.8.4-r0?arch=x86_64&distro=wolfi-20230201&package-id=516af8e28b7e55a9",
+        "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&distro=wolfi-20230201&package-id=53895519b0a8545b"
+      ],
+      "ref": "pkg:apk/wolfi/python-3.15-base@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&package-id=f6fedaa7b6efdb41&upstream=python-3.15"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/python-3.15-base@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&package-id=f6fedaa7b6efdb41&upstream=python-3.15"
+      ],
+      "ref": "pkg:apk/wolfi/python-3.15-runtime@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&package-id=168220ea38f5aa40&upstream=python-3.15"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/python-3.15-runtime@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&package-id=168220ea38f5aa40&upstream=python-3.15"
+      ],
+      "ref": "pkg:apk/wolfi/python-3.15@3.15.0_git20261017-r4?arch=x86_64&distro=wolfi-20230201&package-id=6f8096899ebc2fde"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/ncurses@6.6.20261024-r0?arch=x86_64&distro=wolfi-20230201&package-id=3c096d24d219fc73"
+      ],
+      "ref": "pkg:apk/wolfi/readline@8.3-r3?arch=x86_64&distro=wolfi-20230201&package-id=09f9073629f9da52"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f"
+      ],
+      "ref": "pkg:apk/wolfi/sqlite-libs@3.54.1-r0?arch=x86_64&distro=wolfi-20230201&package-id=09e8f60110a6d1ea&upstream=sqlite"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/ca-certificates-bundle@20260909-r3?arch=x86_64&distro=wolfi-20230201&package-id=d6c5d134859b134f&upstream=ca-certificates"
+      ],
+      "ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201&package-id=e5acd063f9013ce7"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=89a825866348d301&upstream=glibc-2.44"
+      ],
+      "ref": "pkg:apk/wolfi/xz@5.8.4-r0?arch=x86_64&distro=wolfi-20230201&package-id=516af8e28b7e55a9"
+    },
+    {
+      "dependsOn": [
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi-20230201&package-id=f2e146c742cc904f",
+        "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi-20230201&package-id=e5acd063f9013ce7"
+      ],
+      "ref": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&distro=wolfi-20230201&package-id=53895519b0a8545b"
+    },
+    {
+      "dependsOn": [
+        "pkg:pypi/blinker@1.9.0?package-id=aa2497864fc37b40",
+        "pkg:pypi/click@8.5.0?package-id=a8f127821ca1bf80",
+        "pkg:pypi/itsdangerous@2.2.0?package-id=9fa994a569cb6118",
+        "pkg:pypi/jinja2@3.1.6?package-id=32bb977a3ef9f43f",
+        "pkg:pypi/markupsafe@3.0.4?package-id=36d40fe496c4ecee",
+        "pkg:pypi/werkzeug@3.1.9?package-id=60d346aba66a5f46"
+      ],
+      "ref": "pkg:pypi/flask@3.1.3?package-id=9bf1c4014ea2e453"
+    },
+    {
+      "dependsOn": [
+        "pkg:pypi/markupsafe@3.0.4?package-id=36d40fe496c4ecee"
+      ],
+      "ref": "pkg:pypi/jinja2@3.1.6?package-id=32bb977a3ef9f43f"
+    },
+    {
+      "dependsOn": [
+        "pkg:pypi/markupsafe@3.0.4?package-id=36d40fe496c4ecee"
+      ],
+      "ref": "pkg:pypi/werkzeug@3.1.9?package-id=60d346aba66a5f46"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "bom-ref": "c9f4c253fc35242e",
+      "name": "ghcr.io/ismailmifdal/devescops_tp1",
+      "type": "container",
+      "version": "sha256:556200632658fe6ba42a16a398cc9a888271f4970ea1f02982d8c84583ff4de4"
+    },
+    "properties": [
+      {
+        "name": "syft:image:labels:dev.chainguard.image.title",
+        "value": "python"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.authors",
+        "value": "Chainguard Team https://www.chainguard.dev/"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.created",
+        "value": "2026-10-29T09:51:42.815Z"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.licenses",
+        "value": "MIT"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.revision",
+        "value": "9bac395fbd69a7311149462b249f22cb2fd2612f"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.source",
+        "value": "https://github.com/IsmailMifdal/devescops_TP1"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.title",
+        "value": "devescops_TP1"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.url",
+        "value": "https://github.com/IsmailMifdal/devescops_TP1"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.vendor",
+        "value": "Chainguard"
+      },
+      {
+        "name": "syft:image:labels:org.opencontainers.image.version",
+        "value": "1.3.0"
+      }
+    ],
+    "timestamp": "2026-10-29T09:51:57Z",
+    "tools": {
+      "components": [
+        {
+          "author": "anchore",
+          "name": "syft",
+          "type": "application",
+          "version": "1.54.1"
+        }
+      ]
+    }
+  },
+  "serialNumber": "urn:uuid:4c45b903-ce32-49f5-836d-29340c32d34f",
+  "specVersion": "1.6",
+  "version": 1
+}

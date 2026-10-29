@@ -1,4 +1,4 @@
-# DevSecOps TP1 : Hardening Flask + PostgreSQL
+# DevSecOps TP1 & TP2 : Hardening Flask + PostgreSQL, build industriel et supply chain
 
 > Auteur : **Ismail Mifdal** (monôme)
 
@@ -9,27 +9,31 @@
 | API Flask durcie | https://github.com/IsmailMifdal/devescops_TP1/pkgs/container/devescops_tp1 |
 
 ```bash
-docker pull ghcr.io/ismailmifdal/devescops_tp1:1.2.0   # version courante (immuable), index amd64 + arm64
-docker pull ghcr.io/ismailmifdal/devescops_tp1:1.2     # dernier correctif de la 1.2
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.3.0   # version courante (immuable), index amd64 + arm64, signée
+docker pull ghcr.io/ismailmifdal/devescops_tp1@sha256:25e106355d0bb67930b2a85a3a7dd8d38ae2462cd5b3c5adac2e38671d48e5f1   # même image, par digest
+docker pull ghcr.io/ismailmifdal/devescops_tp1:1.3     # dernier correctif de la 1.3
 docker pull ghcr.io/ismailmifdal/devescops_tp1:1       # dernière version de la 1.x
 docker pull ghcr.io/ismailmifdal/devescops_tp1:1.0.0   # première release (amd64 seule)
 
 # Le client choisit automatiquement l'architecture ; pour forcer :
-docker pull --platform linux/arm64 ghcr.io/ismailmifdal/devescops_tp1:1.2.0
+docker pull --platform linux/arm64 ghcr.io/ismailmifdal/devescops_tp1:1.3.0
 ```
 
 Test rapide de l'image publiée :
 
 ```bash
-docker run --rm -p 127.0.0.1:5000:5000 ghcr.io/ismailmifdal/devescops_tp1:1.2.0
+docker run --rm -p 127.0.0.1:5000:5000 ghcr.io/ismailmifdal/devescops_tp1:1.3.0
 curl http://127.0.0.1:5000/health
 ```
+
+Vérification de sa signature et de son SBOM : section 9, « Vérification publique pour l'évaluateur ».
 
 | Version | Contenu |
 |---|---|
 | 1.0.0 | Première release durcie (amd64) |
 | 1.1.0 | Correctifs des retours d'évaluation : mot de passe PostgreSQL en secret monté par fichier (`DB_PASSWORD_FILE`), politique Hadolint explicite, digests Chainguard renouvelés (4 CVE HIGH corrigées, Python 3.15). Image amd64 seule |
-| 1.2.0 | Index multi-arch **linux/amd64 + linux/arm64** construit par Bake, cache BuildKit, secret de build en tmpfs (TP2, étape 1) |
+| 1.2.0 | Index multi-arch **linux/amd64 + linux/arm64** construit par Bake, cache BuildKit, secret de build en tmpfs (TP2, étape 1). Non signée |
+| 1.3.0 | Couches identiques à la 1.2.0 (seuls les labels OCI, la provenance et donc les digests changent). Apports du TP2, étape 2 : SBOM CycloneDX + SPDX, audit Grype sur SBOM avec VEX, **signature keyless Cosign** de l'index et de chaque architecture, attestations SBOM et VEX, gate d'admission |
 
 ## 2. Comparatif Avant / Après
 
@@ -157,14 +161,14 @@ Choix :
 
 ## 6. Sécurisation de la chaîne CI/CD
 
-- **Permissions** : `permissions: {}` au niveau du workflow, chaque job ne reçoit que `contents: read`. Seul le job `release` obtient `packages: write`, et uniquement sur un tag SemVer.
+- **Permissions** : `permissions: {}` au niveau du workflow, chaque job ne reçoit que `contents: read`. Seul le job `release` obtient `packages: write` et `id-token: write` (jeton OIDC de la signature keyless), et uniquement sur un tag SemVer. La gate finale `verify` ne reçoit **aucune** permission.
 - **Pinning SHA** : toutes les actions externes sont référencées par leur SHA de commit complet (version en commentaire). Un tag Git est modifiable, un SHA ne l'est pas : c'est exactement le vecteur utilisé lors de la compromission de `trivy-action` en mars 2026 (CVE-2026-33634).
-- **Outils vérifiés** : Hadolint, Dive et Trivy sont téléchargés en version fixe et contrôlés par `sha256sum -c` avant exécution.
+- **Outils vérifiés** : Hadolint, Dive, Trivy, Syft, Grype et Cosign sont téléchargés en version fixe et contrôlés par `sha256sum -c` avant exécution. Ils sont installés hors du dépôt (`$RUNNER_TEMP`), pour ne pas être eux-mêmes analysés par `trivy fs`.
 - **`persist-credentials: false`** sur les checkouts : le jeton n'est pas laissé sur le disque du runner.
 - **Artefact unique** : l'image construite une seule fois est transmise aux jobs suivants ; c'est exactement cette image, scannée et testée, qui est publiée.
 - **SemVer** : déclenchement sur tag `vX.Y.Z`. Tags publiés : `X.Y.Z` (immuable), `X.Y` et `X` (flottants pour suivre les correctifs), `sha-<commit>` (traçabilité). Pas de tag `latest`.
 
-Pipeline : `flake8` + `hadolint` → `build` (Bake multi-arch amd64/arm64, cache GHA, étanchéité du secret de build, Dive ≥ 80 %) → `security` (Trivy) + `integration` (Compose avec secret, contrôle d'exposition du mot de passe, /health, /dbtest, pytest) → `release` (GHCR).
+Pipeline (séquentiel, chaque étape bloquante) : `flake8` + `hadolint` → `build` (Bake multi-arch amd64/arm64, cache GHA, étanchéité du secret de build, Dive ≥ 80 %) → `security` (SBOM Syft, Trivy, Grype sur SBOM + VEX) → `integration` (Compose avec secret, contrôle d'exposition du mot de passe, /health, /dbtest, pytest) → `release` (GHCR, signature et attestations Cosign) → `verify` (gate d'admission). Détail en section 9.
 
 ## 7. Preuves d'exécution
 
@@ -514,6 +518,342 @@ x86_64 | uid 65532 | flask 3.1.3
 $ docker run --rm --platform linux/arm64 --entrypoint python ghcr.io/ismailmifdal/devescops_tp1:1.2.0 -c "…"
 aarch64 | uid 65532 | flask 3.1.3
 ```
+
+## 9. TP2, étape 2 : SBOM, VEX, signature et gate d'admission
+
+Fichiers concernés : [.grype.yaml](.grype.yaml), [security.vex.json](security.vex.json), [sbom.cdx.json](sbom.cdx.json), [sbom.spdx.json](sbom.spdx.json), [.github/workflows/ci-cd.yaml](.github/workflows/ci-cd.yaml).
+
+### Correspondance avec les livrables du sujet
+
+| Livrable ou section attendue | Où le trouver |
+|---|---|
+| `Dockerfile` (cache persistant, secret en mémoire vive) | Section 8, A et B |
+| `docker-bake.hcl` (multi-arch, secret, versionnement, cache distribué) | Section 8, C |
+| `sbom.cdx.json` et `sbom.spdx.json` | Racine du dépôt et artefacts CI `sbom`, `sbom-release-1.3.0`, `sbom-certifie-1.3.0` (ci-dessous, D) |
+| `security.vex.json` et `.grype.yaml` | Racine du dépôt (ci-dessous, E) |
+| `cosign.pub` | Sans objet : signature **keyless** OIDC. L'identité de vérification est documentée en F |
+| Workflow complété | Ci-dessous, « Pipeline final » |
+| Preuves BuildKit : chronométrage froid/chaud, absence du jeton, manifeste amd64 + arm64 | Section 8, « Preuves d'exécution » et « Preuves CI et publication GHCR » |
+| Requêtes JSON sur le SBOM et justification VEX | Ci-dessous, D et E |
+| Commandes de vérification pour l'évaluateur | Ci-dessous, « Vérification publique » |
+
+### D. SBOM CycloneDX et SPDX
+
+- **Outil** : Syft 1.54.1, analyse **statique** du système de fichiers de l'image. Le conteneur n'est jamais exécuté.
+- **Deux standards** : CycloneDX 1.6 JSON (OWASP, orienté sécurité, porte nativement le VEX) et SPDX 2.3 JSON (ISO/IEC 5962:2021, orienté licences).
+- **`SYFT_FILE_METADATA_SELECTION=none`** : le CycloneDX ne garde que les composants (39 entrées) au lieu de 1 902 entrées, dont 1 863 fichiers. Le SPDX conserve quand même la liste des fichiers de chaque paquet (`CONTAINS`), d'où sa taille (1,6 Mo indenté, contre 169 Ko pour le CycloneDX).
+- **Trois générations, trois garanties** :
+
+| Où | Source analysée | Rôle |
+|---|---|---|
+| Job `security` | Images testées `api:ci` (amd64) et `api:ci-arm64`, lues dans le démon Docker | SBOM audité par Grype ; artefact `sbom` (90 jours) |
+| Job `release` | Images publiées, relues **dans le registre par digest** | Comparé au SBOM testé (mêmes PURL, sinon échec), puis attesté ; artefact `sbom-release-<version>` |
+| Job `verify` | Attestations signées du registre | SBOM **certifié** extrait après vérification ; artefact `sbom-certifie-<version>` |
+
+`sbom.cdx.json` et `sbom.spdx.json`, à la racine, sont les SBOM certifiés de l'index `1.3.0`, extraits de leur attestation (section « Vérification publique », étape 3).
+
+**Interrogation programmatique** (mêmes requêtes que le job `security`, résultats sur `1.3.0`) :
+
+```
+$ jq '.components | length' sbom.cdx.json
+39
+$ jq -r '[.components[].purl // empty | split("/")[0]] | group_by(.) | map("\(.[0]) : \(length)") | .[]' sbom.cdx.json
+pkg:apk : 30
+pkg:pypi : 8
+$ jq -r '.components[] | select(.purl // "" | startswith("pkg:pypi/")) | "\(.purl) [\([.licenses[]? | .license.id // .license.name] | join(", "))]"' sbom.cdx.json
+pkg:pypi/blinker@1.9.0 [MIT]
+pkg:pypi/click@8.5.0 [BSD-3-Clause]
+pkg:pypi/flask@3.1.3 [BSD-3-Clause]
+pkg:pypi/itsdangerous@2.2.0 [BSD-3-Clause]
+pkg:pypi/jinja2@3.1.6 []
+pkg:pypi/markupsafe@3.0.4 [BSD-3-Clause]
+pkg:pypi/psycopg2-binary@2.9.13 [LGPL with exceptions]
+pkg:pypi/werkzeug@3.1.9 [BSD-3-Clause]
+$ jq -r '[.components[].licenses[]? | .license.id // .license.name // .expression] | unique | .[]' sbom.cdx.json
+Apache-2.0
+BSD-2-Clause
+BSD-2-Clause AND GPL-2.0-only
+BSD-3-Clause
+GPL-3.0-or-later
+GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only AND GPL-1.0-only AND LGPL-2.1-or-later AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND MIT AND CC-PDDC
+GPL-3.0-or-later WITH GCC-exception-3.1
+LGPL with exceptions
+LGPL-2.1-or-later
+MIT
+MPL-2.0 AND MIT
+PSF-2.0
+blessing
+$ jq -r '.components[] | select((.licenses // []) | length == 0) | "\(.type) \(.name) \(.version)"' sbom.cdx.json
+library jinja2 3.1.6
+operating-system wolfi 20230201
+$ jq '(.packages | length), (.files | length)' sbom.spdx.json
+39
+1863
+$ jq -r '[.packages[].licenseDeclared] | group_by(.) | map("\(length) \(.[0])") | .[]' sbom.spdx.json
+1 (BSD-2-Clause AND GPL-2.0-only)
+1 (GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only AND GPL-1.0-only AND LGPL-2.1-or-later AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND MIT AND CC-PDDC)
+2 (GPL-3.0-or-later WITH GCC-exception-3.1)
+3 (MPL-2.0 AND MIT)
+3 Apache-2.0
+1 BSD-2-Clause
+4 BSD-3-Clause
+3 GPL-3.0-or-later
+3 LGPL-2.1-or-later
+1 LicenseRef-LGPL-with-exceptions
+9 MIT
+4 NOASSERTION
+3 PSF-2.0
+1 blessing
+```
+
+**Lecture du SBOM**
+
+- **Composition** : 8 bibliothèques Python (dont 2 transitives non importées directement : `blinker`, `markupsafe`), 30 paquets Wolfi (interpréteur `python-3.15`, `glibc`, `openssl-4.0`, `ca-certificates-bundle`, la roue inerte `py3-pip-wheel`…) et le système d'exploitation `wolfi`. Ni shell, ni gestionnaire de paquets, ni compilateur.
+- **`jinja2` sans licence** : c'est un *known unknown* au sens des éléments minimaux CISA. La licence amont est BSD-3-Clause, mais elle n'est pas déclarée dans les métadonnées installées. Syft l'exporte donc en `NOASSERTION` côté SPDX.
+- **`psycopg2-binary` : licence non SPDX** (« LGPL with exceptions », exportée en `LicenseRef-LGPL-with-exceptions`). La LGPL est compatible avec notre usage : liaison dynamique, aucune modification du code.
+- **Copyleft** : les GPL ne concernent que des bibliothèques système Wolfi (`readline`, `gdbm`, `xz`, `libuuid`, `libzstd1`) et `libgcc`/`libstdc++` sous exception GCC. Elles sont utilisées telles quelles par liaison dynamique. Aucune AGPL.
+- **Limites** : les paquets PyPI n'ont pas d'empreinte (`hashes`) dans le SBOM. C'est une limite de Syft sur un venv déjà installé.
+
+### E. Audit du SBOM par Grype et qualification VEX
+
+**Politique** ([.grype.yaml](.grype.yaml)) :
+
+| Clé | Valeur | Effet |
+|---|---|---|
+| `fail-on-severity` | `high` | Code retour 1 dès qu'une vulnérabilité HIGH ou CRITICAL subsiste |
+| `only-fixed` | `true` | Seules les vulnérabilités **avec correctif publié** comptent pour la porte |
+| `vex-documents` | `security.vex.json` | Les déclarations OpenVEX sont appliquées à chaque scan |
+| `ignore` | `[]` | Aucune exclusion opaque : toute exemption passe par le VEX |
+| `show-suppressed` | `true` | Une vulnérabilité neutralisée reste affichée (traçabilité) |
+
+Grype analyse le **fichier SBOM** (`grype sbom:sbom/sbom.cdx.json -c .grype.yaml`), pas l'image : pas de nouveau téléchargement ni de décompression des couches. Trivy continue de scanner les images (vulnérabilités et secrets) : deux moteurs, deux bases de données.
+
+**Constat (base Grype du 29/10/2026)**
+
+| Moteur | Résultat sur l'image (toutes sévérités, sans filtre) |
+|---|---|
+| Trivy 0.75.0 | 0 vulnérabilité (amd64 et arm64) |
+| Grype 0.120.1 | 1 vulnérabilité : `CVE-2026-114583`, `python-3.15 3.15.0_git20261017-r4`, Medium, aucun correctif Wolfi, EPSS 0,23 % (amd64 et arm64) |
+
+**Analyse de CVE-2026-114583** : `tarfile.tar_filter` peut être contourné par des liens forgés. Une archive malveillante, extraite avec `tarfile.extractall(filter="tar")`, peut alors écrire hors du répertoire cible.
+
+1. **Le code vulnérable est-il présent ?** Oui. Le correctif CPython de la branche 3.15 ([`c6ada40`](https://github.com/python/cpython/commit/c6ada40177436e4e2533a7b252082b5f0c043477)) date du 22/10, après le snapshot Wolfi du 17/10. Vérification dans l'image :
+   ```
+   $ docker run --rm --entrypoint python ghcr.io/ismailmifdal/devescops_tp1:1.2.0 -c "…"
+   python 3.15.0 | /usr/lib/python3.15/tarfile.py
+   correctif present (normpath(name) == os.curdir) : False
+   ancien controle present (target_path == dest_path) : True
+   ```
+   La justification `vulnerable_code_not_present` serait donc **fausse**.
+2. **Le code vulnérable est-il exécuté ?** Non. `app.py` n'importe que `flask`, `psycopg2` et `os`. L'API n'expose aucun envoi de fichier et n'extrait aucune archive. Preuve dynamique dans l'image : l'application est chargée, puis ses deux routes sont appelées.
+   ```
+   /health -> 200
+   /dbtest -> 500 (sans base : erreur attendue)
+   modules charges : 369
+   tarfile charge : False | shutil charge : True
+   fichiers des dependances qui mentionnent tarfile : aucun
+   ```
+3. **Exploitabilité** : vecteur local (CVSS 4.0 `AV:L`), EPSS 0,23 % (13e centile).
+
+**Décision** : `not_affected` avec la justification normalisée **`vulnerable_code_not_in_execute_path`** ([security.vex.json](security.vex.json)).
+
+- **Produit visé** : le PURL du paquet, `pkg:apk/wolfi/python-3.15@3.15.0_git20261017-r4`, sans qualificateur `arch`. La déclaration couvre donc amd64 et arm64.
+- **Échéance** : la `status_notes` prévoit de retirer l'exemption dès que l'image de base embarquera Python ≥ 3.15.2.
+- **Point métier** : un VEX sert à qualifier, pas à cacher. La vulnérabilité reste visible dans chaque rapport, marquée comme neutralisée.
+
+**Effet mesuré** (mêmes commandes que la CI) :
+
+```
+# Sans VEX : la vulnérabilité est active
+$ grype sbom:sbom.cdx.json
+NAME         INSTALLED              TYPE  VULNERABILITY    SEVERITY  EPSS         RISK
+python-3.15  3.15.0_git20261017-r4  apk   CVE-2026-114583  Medium    0.2% (13th)  0.1
+
+# Avec VEX : elle est neutralisée, de façon auditable
+$ grype sbom:sbom.cdx.json --vex security.vex.json --show-suppressed
+NAME         INSTALLED              TYPE  VULNERABILITY    SEVERITY  EPSS         RISK
+python-3.15  3.15.0_git20261017-r4  apk   CVE-2026-114583  Medium    0.2% (13th)  0.1   (suppressed by VEX)
+
+# Porte CI (.grype.yaml)
+$ grype sbom:sbom.cdx.json -c .grype.yaml ; echo $?
+0
+```
+
+**Gouvernance du VEX** : avant tout scan, un contrôle `jq` bloquant refuse le document dans trois cas :
+- une déclaration sans `products`, ou dont le produit n'est pas un PURL ;
+- un `not_affected` sans justification normalisée OpenVEX ou sans `impact_statement` ;
+- un `affected` sans `action_statement`.
+
+Ce contrôle vient d'un piège mesuré : **Grype ignore sans aucun message une déclaration sans `products`**. Les deux contre-épreuves sont rejetées (code retour 1) :
+- déclaration sans `products` ;
+- justification hors liste (`pas_de_risque`).
+
+### F. Signature, attestations et gate d'admission
+
+**Choix keyless (livrable 5)** : aucune paire de clés, donc pas de `cosign.pub`.
+
+- Le job `release` obtient un jeton OIDC GitHub (`id-token: write`).
+- Fulcio délivre un certificat éphémère au nom du workflow, et chaque signature est inscrite dans le journal de transparence public Rekor.
+- Aucun secret n'est à stocker ni à faire tourner. Une signature n'est valide que si elle vient de **ce** workflow, de **ce** dépôt, pour **ce** tag.
+
+Configuration de vérification d'identité :
+
+| Paramètre | Valeur attendue |
+|---|---|
+| Émetteur OIDC (`--certificate-oidc-issuer`) | `https://token.actions.githubusercontent.com` |
+| Identité (`--certificate-identity`) | `https://github.com/IsmailMifdal/devescops_TP1/.github/workflows/ci-cd.yaml@refs/tags/v1.3.0` |
+| Contrôles supplémentaires en CI | dépôt `IsmailMifdal/devescops_TP1`, déclencheur `push`, SHA du commit du tag (`--certificate-github-workflow-*`) |
+
+**Job `release`**, après la publication et le contrôle d'intégrité des couches :
+1. Lecture des **digests immuables** : index, `linux/amd64`, `linux/arm64`.
+2. SBOM des images **publiées**, lus dans le registre par digest, puis comparaison avec le SBOM testé et audité (mêmes PURL, sinon échec).
+3. `cosign sign --recursive` sur le digest de l'index : l'index et chaque image sont signés. On signe un digest, jamais un tag mutable. Les tags `1.3`, `1` et `sha-…` désignent ce même index.
+4. `cosign attest` (prédicats CycloneDX, SPDX et OpenVEX) :
+   - chaque image reçoit **son** SBOM ;
+   - l'index reçoit le SBOM de référence (amd64) et le VEX.
+   `cosign attest` n'a pas d'option `--recursive` : chaque digest est attesté explicitement.
+
+**Job `verify` (gate d'admission)** : il est indépendant, n'a **aucune permission**, n'utilise aucun identifiant pour lire le registre, et ne contient aucun `continue-on-error`.
+1. Le tag `1.3.0` désigne toujours le digest signé.
+2. `cosign verify` sur l'index et sur chaque image, avec l'identité exacte, l'émetteur, le dépôt, le déclencheur et le SHA du commit.
+3. `cosign verify-attestation` CycloneDX, SPDX et OpenVEX. Le sujet in-toto de chaque attestation doit être le digest vérifié. Le SBOM certifié est ensuite extrait.
+4. **Contre-épreuve** : une identité non autorisée (`…/forged.yaml@refs/heads/main`) doit être rejetée.
+
+**Piège Cosign v3 découvert pendant la préparation.** Avec le nouveau format de bundle, `cosign verify` répond « OK » (code 0) sur une image **attestée mais jamais signée**. Il compte l'attestation comme une signature. Une gate qui ne testerait que le code retour serait trompée. Reproduction sur un registre local isolé d'Internet, avec une paire de clés jetable :
+
+```
+$ cosign verify --key cosign.pub reg:5000/witness2@sha256:46ae…   # attestée, NON signée
+  - The signatures were verified against the specified public key   (exit 0)
+1 ['https://cyclonedx.org/bom']
+```
+
+La gate exige donc en plus, sur le digest vérifié, une entrée de type `https://sigstore.dev/cosign/sign/v1` (signature d'image). Le contrôle `jq` renvoie `true` sur l'image signée et `false` (code 1) sur le témoin.
+
+### Pipeline final
+
+| # | Étape demandée | Job | Contrôles bloquants |
+|---|---|---|---|
+| 1 | Qualité et gouvernance statique | `flake8`, `hadolint` | Style Python, tests unitaires, Hadolint (dont `RUN --mount`) |
+| 2 | Construction BuildKit et métrologie | `build` | Builder `docker-container` isolé, Bake amd64 + arm64, secret en tmpfs, absence du jeton (historique et couches), Dive ≥ 80 % |
+| 3 | SBOM et double scan | `security` | VEX valide, Trivy images + dépôt, SBOM CycloneDX + SPDX (artefacts), Grype sur SBOM + VEX |
+| 4 | Intégration sans shell | `integration` | PostgreSQL Chainguard épinglé par digest, sondes natives, `/health`, `/dbtest`, pytest |
+| 5 | Publication, signature, attestation | `release` (tag uniquement) | Bake `--push`, couches identiques à l'image testée, SBOM publié = SBOM testé, signature et attestations par digest |
+| 6 | Gate d'admission finale | `verify` (tag uniquement) | Signature et attestations revérifiées depuis le registre, contre-épreuve d'identité |
+
+- Run sur `main` (jobs 1 à 4 verts, publication ignorée hors tag) : https://github.com/IsmailMifdal/devescops_TP1/actions/runs/40844184027
+- Run de release `v1.3.0` (7/7 jobs verts du premier coup) : https://github.com/IsmailMifdal/devescops_TP1/actions/runs/40852353151
+
+| Job | `main` | `v1.3.0` |
+|---|---|---|
+| Flake8 | 17 s | 11 s |
+| Hadolint | 5 s | 7 s |
+| Build multi-arch (Bake) et Dive | 64 s | 51 s |
+| SBOM et double scan (Trivy + Grype/VEX) | 115 s | 115 s |
+| Intégration Compose | 58 s | 60 s |
+| Publication, signature et attestation | ignorée (hors tag) | 129 s |
+| Gate d'admission | ignorée (hors tag) | 30 s |
+
+Étapes des deux derniers jobs de la release :
+```
+success - Publication de l'index multi-arch (Bake, cache GHA du build validé)
+success - Index OCI publié (amd64 + arm64)
+success - Intégrité - les couches amd64 publiées sont celles de l'image testée
+success - Digests immuables publiés (index + une image par architecture)
+success - SBOM des images publiées, lus dans le registre par digest (Syft)
+success - Le SBOM publié correspond au SBOM testé et audité (mêmes PURL)
+success - Signature keyless (OIDC) de l'index et de chaque image, par digest
+success - Attestations signées du SBOM (CycloneDX + SPDX) et du VEX, rattachées aux digests
+success - Archiver les SBOM publiés et attestés (artefacts CI, 90 jours)
+--- verify ---
+success - Le tag SemVer désigne toujours le digest publié (lecture anonyme du registre)
+success - Signature de l'index et de chaque image (Fulcio + Rekor)
+success - Attestations SBOM et VEX authentiques, extraction du SBOM certifié
+success - Contre-épreuve - une identité de signataire non autorisée est rejetée
+success - Archiver le SBOM certifié extrait du registre
+```
+
+GHCR ne prend pas en charge l'API OCI *referrers* (`/v2/…/referrers/<digest>` renvoie 404). Cosign v3 se replie donc sur le schéma de tags `sha256-<digest>` : un tag par digest signé (index, amd64, arm64 et les deux manifestes d'attestation BuildKit) apparaît dans le package.
+
+### Vérification publique pour l'évaluateur
+
+Image publiée : `ghcr.io/ismailmifdal/devescops_tp1:1.3.0`
+
+| Référence | Digest |
+|---|---|
+| Index multi-arch (tags `1.3.0`, `1.3`, `1`) | `sha256:25e106355d0bb67930b2a85a3a7dd8d38ae2462cd5b3c5adac2e38671d48e5f1` |
+| `linux/amd64` | `sha256:556200632658fe6ba42a16a398cc9a888271f4970ea1f02982d8c84583ff4de4` |
+| `linux/arm64` | `sha256:b29600fa703e683a311a3a06ae53ea35683aca709f9b2dfcb5738dfe27e2f1f3` |
+
+Avec Cosign v3 installé, ou via Docker : `alias cosign='docker run --rm gcr.io/projectsigstore/cosign:v3.1.3'`. Aucune authentification n'est nécessaire.
+
+```bash
+IMAGE=ghcr.io/ismailmifdal/devescops_tp1
+DIGEST=sha256:25e106355d0bb67930b2a85a3a7dd8d38ae2462cd5b3c5adac2e38671d48e5f1
+ID=https://github.com/IsmailMifdal/devescops_TP1/.github/workflows/ci-cd.yaml@refs/tags/v1.3.0
+ISSUER=https://token.actions.githubusercontent.com
+
+# 0. Le tag SemVer désigne bien l'index signé (amd64 + arm64)
+docker buildx imagetools inspect "$IMAGE:1.3.0"
+
+# 1. Signature de l'image (index ; même commande avec le digest amd64 ou arm64)
+cosign verify --certificate-identity "$ID" --certificate-oidc-issuer "$ISSUER" "$IMAGE@$DIGEST" \
+  | jq -r '.[].critical.type'          # doit contenir https://sigstore.dev/cosign/sign/v1
+
+# 2. Attestation SBOM (CycloneDX ; --type spdxjson pour le SPDX, --type openvex pour le VEX)
+cosign verify-attestation --type cyclonedx \
+  --certificate-identity "$ID" --certificate-oidc-issuer "$ISSUER" "$IMAGE@$DIGEST" > att.jsonl
+
+# 3. Extraction du SBOM certifié depuis l'attestation vérifiée
+jq -r '.payload' att.jsonl | head -n 1 | base64 -d > statement.json
+jq -r '.predicateType, .subject[0].digest.sha256' statement.json   # https://cyclonedx.org/bom + digest de l'index
+jq '.predicate' statement.json > sbom-certifie.cdx.json
+jq '.components | length' sbom-certifie.cdx.json                  # 39
+```
+
+**Résultats obtenus depuis un poste sans authentification** (Cosign v3.1.3 en conteneur) :
+
+```
+$ cosign verify --certificate-identity "$ID" --certificate-oidc-issuer "$ISSUER" "$IMAGE@$DIGEST"
+Verification for ghcr.io/ismailmifdal/devescops_tp1@sha256:25e106355d0bb67930b2a85a3a7dd8d38ae2462cd5b3c5adac2e38671d48e5f1 --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - Existence of the claims in the transparency log was verified offline
+  - The code-signing certificate was verified using trusted certificate authority certificates
+# types des entrées vérifiées sur l'index (exit 0, idem pour amd64 et arm64) :
+https://spdx.dev/Document
+https://cyclonedx.org/bom
+https://sigstore.dev/cosign/sign/v1
+https://openvex.dev/ns
+
+# verify-attestation : 7 attestations, toutes en exit 0
+att-cyclonedx-idx    https://cyclonedx.org/bom   sujet=25e106355d0b  39 composants
+att-cyclonedx-amd64  https://cyclonedx.org/bom   sujet=556200632658  39 composants
+att-cyclonedx-arm64  https://cyclonedx.org/bom   sujet=b29600fa703e  39 composants
+att-spdxjson-idx     https://spdx.dev/Document   sujet=25e106355d0b  39 paquets
+att-spdxjson-amd64   https://spdx.dev/Document   sujet=556200632658  39 paquets
+att-spdxjson-arm64   https://spdx.dev/Document   sujet=b29600fa703e  39 paquets
+att-openvex-idx      https://openvex.dev/ns      sujet=25e106355d0b  1 déclaration
+
+# Extraction (étape 3) : ce sont les fichiers sbom.cdx.json et sbom.spdx.json de la racine
+https://cyclonedx.org/bom
+25e106355d0bb67930b2a85a3a7dd8d38ae2462cd5b3c5adac2e38671d48e5f1
+39
+
+# Contre-épreuve 1 : identité usurpée (exit 1)
+$ cosign verify --certificate-identity "https://github.com/IsmailMifdal/devescops_TP1/.github/workflows/forged.yaml@refs/heads/main" …
+failed to verify certificate identity: no matching CertificateIdentity found, last error: expected SAN value
+"https://github.com/IsmailMifdal/devescops_TP1/.github/workflows/forged.yaml@refs/heads/main",
+got "https://github.com/IsmailMifdal/devescops_TP1/.github/workflows/ci-cd.yaml@refs/tags/v1.3.0"
+
+# Contre-épreuve 2 : la 1.2.0, publiée avant l'étape 2, n'est pas signée (exit 10)
+$ cosign verify … ghcr.io/ismailmifdal/devescops_tp1:1.2.0
+error during command execution: no signatures found
+```
+
+**Limites et niveau atteint**
+
+- **Niveau SLSA** : la signature Cosign, la provenance BuildKit (manifestes `attestation-manifest` de l'index) et la construction sur un runner GitHub éphémère amènent la chaîne au niveau **SLSA Build L2**. Le niveau L3 exigerait un générateur de provenance isolé du job de build (`slsa-github-generator`).
+- **SBOM de l'index** : l'attestation de l'index porte le SBOM amd64, l'image de référence testée. Les compositions amd64 et arm64 sont identiques au qualificateur `arch` près des PURL, et chaque image porte de toute façon son propre SBOM.
 
 ## Lancer le projet en local
 
