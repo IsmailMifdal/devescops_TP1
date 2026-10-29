@@ -608,7 +608,7 @@ $ jq -r '[.packages[].licenseDeclared] | group_by(.) | map("\(length) \(.[0])") 
 
 **Lecture du SBOM**
 
-- **Composition** : 8 bibliothèques Python (dont 2 transitives non importées directement : `blinker`, `markupsafe`), 30 paquets Wolfi (interpréteur `python-3.15`, `glibc`, `openssl-4.0`, `ca-certificates-bundle`, la roue inerte `py3-pip-wheel`…) et le système d'exploitation `wolfi`. Ni shell, ni gestionnaire de paquets, ni compilateur.
+- **Composition** : 8 bibliothèques Python, dont 2 utilisées directement par `app.py` (`flask`, `psycopg2-binary`) et 6 dépendances transitives de Flask (`werkzeug`, `jinja2`, `markupsafe`, `itsdangerous`, `click`, `blinker`), toutes épinglées dans `requirements.txt` ; 30 paquets Wolfi (interpréteur `python-3.15`, `glibc`, `openssl-4.0`, `ca-certificates-bundle`, la roue inerte `py3-pip-wheel`…) et le système d'exploitation `wolfi`. Ni shell, ni gestionnaire de paquets, ni compilateur.
 - **`jinja2` sans licence** : c'est un *known unknown* au sens des éléments minimaux CISA. La licence amont est BSD-3-Clause, mais elle n'est pas déclarée dans les métadonnées installées. Syft l'exporte donc en `NOASSERTION` côté SPDX.
 - **`psycopg2-binary` : licence non SPDX** (« LGPL with exceptions », exportée en `LicenseRef-LGPL-with-exceptions`). La LGPL est compatible avec notre usage : liaison dynamique, aucune modification du code.
 - **Copyleft** : les GPL ne concernent que des bibliothèques système Wolfi (`readline`, `gdbm`, `xz`, `libuuid`, `libzstd1`) et `libgcc`/`libstdc++` sous exception GCC. Elles sont utilisées telles quelles par liaison dynamique. Aucune AGPL.
@@ -710,8 +710,8 @@ Configuration de vérification d'identité :
 3. `cosign sign --recursive` sur le digest de l'index : l'index et chaque image sont signés. On signe un digest, jamais un tag mutable. Les tags `1.3`, `1` et `sha-…` désignent ce même index.
 4. `cosign attest` (prédicats CycloneDX, SPDX et OpenVEX) :
    - chaque image reçoit **son** SBOM ;
-   - l'index reçoit le SBOM de référence (amd64) et le VEX.
-   `cosign attest` n'a pas d'option `--recursive` : chaque digest est attesté explicitement.
+   - l'index reçoit le SBOM de référence (amd64) et le VEX ;
+   - `cosign attest` n'a pas d'option `--recursive` : chaque digest est attesté explicitement.
 
 **Job `verify` (gate d'admission)** : il est indépendant, n'a **aucune permission**, n'utilise aucun identifiant pour lire le registre, et ne contient aucun `continue-on-error`.
 1. Le tag `1.3.0` désigne toujours le digest signé.
